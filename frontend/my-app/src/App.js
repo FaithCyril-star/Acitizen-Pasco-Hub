@@ -1,24 +1,18 @@
 import React from 'react';
 import {
   ChakraProvider,
-  Input,
-  Button,
-  theme,
-  Flex,
-  VStack,
+  theme
 } from '@chakra-ui/react';
+import Search from './components/Search';
+import Header from './components/Header'
 
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <Flex>
-        <VStack m='240px' ml='240px' mr='50px' spacing='24px'>
-        <Input w={500} h={10} placeholder='Enter coursename here'/>
-        <Button colorScheme='red'>Search</Button>
-        </VStack>
-      </Flex>
-    </ChakraProvider>
+      <Header/>
+      <Search/>
+  </ChakraProvider>
   );
 }
 
