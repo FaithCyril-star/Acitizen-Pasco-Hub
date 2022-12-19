@@ -1,23 +1,35 @@
 import React, { Component } from 'react';
-import { SearchIcon } from '@chakra-ui/icons';
+import { SearchIcon} from '@chakra-ui/icons';
 import { Input,
     InputGroup,
     IconButton,
-    InputRightElement } from '@chakra-ui/react'
+    InputRightElement,
+    Center
+ } from '@chakra-ui/react'
+
 
 class Search extends Component {
     render() {
+        const size = this.props.size;
+        const width  = this.props.width;
+        const placeholder = this.props.placeholder;
         return (
-            <InputGroup size='md' w='md'>
+            <Center>
+            <InputGroup size={size} w={width} mt="80px">
                 <Input
                     pr='4.5rem'
                     type='text'
-                    placeholder='Type course name...'
+                    placeholder={placeholder}
                 />
-                <InputRightElement width='4.5rem'>
-                <IconButton mr='-8' p="5px" aria-label='Search database' icon={<SearchIcon />} />
-                </InputRightElement>
+                <InputRightElement>
+                <IconButton 
+                w = "10"
+                h = "9" 
+                mr="1"
+                aria-label='Search database' icon={<SearchIcon />} />
+                </InputRightElement>   
             </InputGroup>
+            </Center>
         );
     }
 

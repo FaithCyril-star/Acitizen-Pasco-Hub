@@ -5,7 +5,12 @@ class Header extends Component {
     render() {
         return (
             <div>
-                <Heading>Acity Pasco Hub</Heading>
+                <Heading 
+                color = "#ff3333"
+                mt="80px" 
+                textAlign="center" 
+                fontSize={"60"}
+                fontFamily='Roboto Slab'>Acity Pasco Hub</Heading>
             </div>
         );
     }
