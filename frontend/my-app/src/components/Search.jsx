@@ -14,7 +14,7 @@ function Search(props){
         const placeholder = props.placeholder;
         return (
             <Center>
-            <InputGroup size={size} w={width} m="125px">
+            <InputGroup size={size} w={width} m="8%">
                 <Input
                     pr='4.5rem'
                     type='text'

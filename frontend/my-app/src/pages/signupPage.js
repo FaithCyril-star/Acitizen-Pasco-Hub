@@ -4,9 +4,7 @@ import Signup from '../components/Signup'
 class signupPage extends Component {
     render() {
         return (
-            <div>
-                <Signup/>
-            </div>
+            <Signup/>
         );
     }
 }

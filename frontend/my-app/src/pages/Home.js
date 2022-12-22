@@ -4,6 +4,7 @@ import Search from '../components/Search';
 import {Box, HStack,Button} from '@chakra-ui/react';
 import Footer from '../components/Footer';
 
+
 class Home extends Component {
     render() {
         return (
@@ -27,8 +28,8 @@ class Home extends Component {
             </HStack>
         </Box>
         <Header/>
-        <Search width="40%" placeholder="Type course name here..."/>
-        <Box float='left' ml='20px'><Footer/></Box>
+        <Search width="40%" placeholder='Type course name here...'/>
+        <Box float='left'><Footer/></Box>
         </Box>
         );
     }

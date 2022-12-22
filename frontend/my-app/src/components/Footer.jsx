@@ -33,7 +33,7 @@ class Footer extends React.Component{
         </ButtonGroup>
       </Stack>
       <Text fontSize="sm" color="subtle">
-        &copy; {new Date().getFullYear()} Created by Faith Cyril.
+        &copy; {new Date().getFullYear()} Created by Faith Cyril
       </Text>
     </Stack>
   </Container>
