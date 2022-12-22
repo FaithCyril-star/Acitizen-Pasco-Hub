@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import {Button} from '@chakra-ui/react';
+import {Input, FormControl, Button} from '@chakra-ui/react';
 
 class Upload extends Component {
     render() {
         return (
+            <FormControl>
+            <Input type="file">
+               </Input>
                <Button
                w ="200px"
                h="100px"
@@ -12,9 +15,10 @@ class Upload extends Component {
                color='white'
                bg="#ff3333"
                _hover ={{
-                bg:"#ff3333"
+               bg:"#ff3333"
                }}
-               >UPLOAD</Button>
+               type="file">UPLOAD</Button>
+               </FormControl>
         );
     }
 }

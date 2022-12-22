@@ -10,6 +10,7 @@ function App() {
     <ChakraProvider 
     theme={theme}>
     <Home/>  
+    
   </ChakraProvider>
   );
 }

@@ -6,7 +6,7 @@ class Header extends Component {
         return (
             <div>
                 <Heading 
-                color = "#ff3333"
+                color = "#ed3737"
                 mt="80px" 
                 textAlign="center" 
                 fontSize={"60"}

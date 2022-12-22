@@ -1,19 +1,35 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
 import Search from '../components/Search';
-import {Text,Link,Box} from '@chakra-ui/react';
-
+import {Box, HStack,Button} from '@chakra-ui/react';
+import Footer from '../components/Footer';
 
 class Home extends Component {
     render() {
         return (
-<Box>
+    <Box>
+        <Box display="flex" justifyContent="flex-end" m='20px'>
+            <HStack>
+                <Button bg="#ed3737" color='white'
+                _hover={{
+                    boxShadow:'xl'
+                }}
+                _focus={{
+                    bg:"#ed3737"
+                }}>Login</Button>
+                <Button bg="#ed3737" color='white'
+                _hover={{
+                    boxShadow:'xl'
+                }}
+                _focus={{
+                    bg:"#ed3737"
+                }}>Sign up</Button>
+            </HStack>
+        </Box>
         <Header/>
-        <Search width="400px" placeholder="Type course name here..." />
-        <Text mt="3" textAlign='center' size='xm'>
-            <Link color="blue" to="/login">Login</Link> or <Link color="blue" to="/signup">Signup</Link>
-        </Text>
- </Box>
+        <Search width="40%" placeholder="Type course name here..."/>
+        <Box float='left' ml='20px'><Footer/></Box>
+        </Box>
         );
     }
 }

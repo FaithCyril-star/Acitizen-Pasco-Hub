@@ -1,25 +1,34 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { SearchIcon} from '@chakra-ui/icons';
 import { Input,
     InputGroup,
     IconButton,
     InputRightElement,
-    Center
- } from '@chakra-ui/react'
+    Center,
+ } from '@chakra-ui/react';
 
 
-class Search extends Component {
-    render() {
-        const size = this.props.size;
-        const width  = this.props.width;
-        const placeholder = this.props.placeholder;
+function Search(props){
+        const size = props.size;
+        const width  = props.width;
+        const placeholder = props.placeholder;
         return (
             <Center>
-            <InputGroup size={size} w={width} mt="80px">
+            <InputGroup size={size} w={width} m="125px">
                 <Input
                     pr='4.5rem'
                     type='text'
                     placeholder={placeholder}
+                    _placeholder={{ color: 'black' }}
+                    borderColor = '#0080ff'
+                    boxShadow = 'xl'
+                    _hover ={{
+                        borderColor:'#0080ff'
+                    }}
+                    _focus = {{
+                        boxShadow:'xl' ,
+                    }}
+                    
                 />
                 <InputRightElement>
                 <IconButton 
@@ -32,8 +41,5 @@ class Search extends Component {
             </Center>
         );
     }
-
-    
-}
 
 export default Search;
