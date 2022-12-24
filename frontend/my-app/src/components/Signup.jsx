@@ -54,7 +54,14 @@ function Signup(props) {
                      onClick = {() => {passwordType === "password" ? setPasswordtype("text"):setPasswordtype("password")}} icon={passwordType === "password" ? <ViewOffIcon/> : <ViewIcon/>}/></InputRightElement>
                     </InputGroup>
                     <Center>
-                    <Button _hover={{bg:"#ff3333"}} mt="8" type="submit">Submit</Button>
+                    <Button bg="#ed3737"
+                    color="white"
+                    _hover={{
+                        boxShadow: 'xl',
+                    }}
+                    _focus={{
+                        bg: '#ed3737',
+                    }} mt="8" type="submit">Submit</Button>
                     </Center>
                 </FormControl>
             </div>
