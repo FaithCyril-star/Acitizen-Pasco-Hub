@@ -5,7 +5,6 @@ import {Box, HStack,Button} from '@chakra-ui/react';
 import Footer from '../components/Footer';
 import { useNavigate } from "react-router-dom";
 
-
 function Home() {
     const navigate = useNavigate();
     return (
