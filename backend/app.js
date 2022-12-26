@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const testAPIRouter = require('./routes/testAPI');
-const profileRouter = require('./routes/profile');
+const uploadRouter = require('./routes/upload');
 const cors = require("cors");
 require("dotenv").config();
 
@@ -17,7 +17,7 @@ app.use(express.urlencoded());
 
 //routed endpoints
 app.use("/testAPI", testAPIRouter);
-app.use("/profile",profileRouter)
+app.use("/upload",uploadRouter)
 
 
 // Start the server

@@ -3,11 +3,11 @@ const router = express.Router();
 const multer = require("multer");
 
 
-const profile = require("../endpoints/profile");
+const upload = require("../endpoints/upload");
 
 //base route to use this endpoint(add)
 router.post("/", multer().single("file"), function (req, res, next) {
-  profile.add(req, res);
+  upload.add(req, res);
 });
 
 module.exports = router;
