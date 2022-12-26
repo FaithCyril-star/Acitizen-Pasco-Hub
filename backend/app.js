@@ -1,16 +1,25 @@
 const express = require('express');
 const app = express();
-var testAPIRouter = require('./routes/testAPI');
-var cors = require("cors");
-// Set up a route that serves the HTML file that contains your React app
+const testAPIRouter = require('./routes/testAPI');
+const profileRouter = require('./routes/profile');
+const cors = require("cors");
+require("dotenv").config();
 
+// Set up a route that serves a message at ::9000
 app.get('/', (req, res) => {
   res.send('Hello!');
 });
 
+//middleware
 app.use(cors());
-//route for test
+app.use(express.json());
+app.use(express.urlencoded());
+
+//routed endpoints
 app.use("/testAPI", testAPIRouter);
+app.use("/profile",profileRouter)
+
+
 // Start the server
 const port = process.env.PORT || 9000;
 app.listen(port, () => {

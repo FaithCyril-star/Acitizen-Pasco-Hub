@@ -20,7 +20,6 @@ function App() {
           <Route path="signup" element={<SignupPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="profile" element={<Profile />} />
-          {/* <Route path="*" element={<NoPage />} /> */}
       </Routes>
   </ChakraProvider>
   );
