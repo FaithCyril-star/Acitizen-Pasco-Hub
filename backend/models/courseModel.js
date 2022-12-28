@@ -17,7 +17,7 @@ const courseSchema = new Schema({
         type: String,
         required: true,
       }, // name of the file
-      file: { type: Buffer, required: true },
+      fileUrl: { type: String, required: true },
       //file itself
       size: {
         type: Number,
