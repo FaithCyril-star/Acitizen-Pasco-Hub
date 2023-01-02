@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const Course = require("../models/courseModel");
 const {
   BlobServiceClient,
@@ -10,18 +11,21 @@ require("../config/mongo").connect();
 // Set the connection string for the storage account
 const connectionString = `DefaultEndpointsProtocol=https;AccountName=${process.env.STORAGE_ACCOUNT};AccountKey=${process.env.STORAGE_KEY};EndpointSuffix=core.windows.net`;
 
-
 // Create a new BlobServiceClient using the connection string
-const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
+const blobServiceClient =
+  BlobServiceClient.fromConnectionString(connectionString);
 
 // Get a reference to the container where the file will be stored
-const containerClient = blobServiceClient.getContainerClient(process.env.STORAGE_CONTAINER);
+const containerClient = blobServiceClient.getContainerClient(
+  process.env.STORAGE_CONTAINER
+);
 
 //creating endpoint to add a file to a course
-function add(req, res) {
-  const { course_name, _id, uploaded_by } = req.body;
+function uploadFile(req, res) {
+  const { course_name, uploaded_by } = req.body;
 
   // Read the contents of the file into a buffer and it's other properties
+  const _id = new mongoose.Types.ObjectId();
   const name = req.file.originalname;
   const size = req.file.size;
   const type = req.file.mimetype;
@@ -65,4 +69,4 @@ function add(req, res) {
     });
 }
 
-module.exports = { add };
+module.exports = { uploadFile };

@@ -1,9 +1,10 @@
 const Course = require("../models/courseModel");
+const mongoose = require("mongoose");
 
 require("../config/mongo").connect();
 
 //creating endpoint to get all courses
-function get(req,res){
+function getCourse(req,res){
   const query = Course.find({});
   query
     .exec()
@@ -14,8 +15,9 @@ function get(req,res){
 };
 
 //creating endpoint to create a course
-function create(req,res){
-    const { _id, name, description, files } = req.body;
+function createCourse(req,res){
+    const { name, description, files } = req.body;
+    const _id = new mongoose.Types.ObjectId();
     const course = new Course({_id,name,description,files});
     course.save()
     .then(() => res.json(course))
@@ -25,5 +27,5 @@ function create(req,res){
 }
 
 
-module.exports = {get,create};
+module.exports = {getCourse,createCourse};
 

@@ -6,7 +6,7 @@ const upload = require("../controllers/upload");
 
 //base route to use this endpoint(add)
 router.post("/", multer().single("file"), function (req, res, next) {
-  upload.add(req, res);
+  upload.uploadFile(req, res);
 });
 
 module.exports = router;

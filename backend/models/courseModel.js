@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const courseSchema = new Schema({
-  _id: { type: Number, required: true }, // unique identifier for the file
+  _id: { type: mongoose.Schema.Types.ObjectId, auto: true }, // unique identifier for the file
   // unique identifier for the course
   name: { type: String, required: true }, // name of the course
   description: { type: String, required: true }, // description of the course
   files: [
     {
-      _id: { type: Number, required: true }, // unique identifier for the file
+      _id: { type: mongoose.Schema.Types.ObjectId, auto: true }, // unique identifier for the file
       uploaded_by: {
         type: String,
         required: true,
