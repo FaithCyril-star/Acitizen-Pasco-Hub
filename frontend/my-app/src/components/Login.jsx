@@ -36,14 +36,7 @@ function Login(props){
                     </InputGroup>
                     <Center>
                     <Button 
-                    bg="#ed3737"
-                    color="white"
-                    _hover={{
-                    boxShadow: 'xl',
-                    }}
-                     _focus={{
-                        bg: '#ed3737',
-                    }}
+                    colorScheme='red'
                     mt="8" type="submit">Submit</Button>
                     </Center>
                 </FormControl>  

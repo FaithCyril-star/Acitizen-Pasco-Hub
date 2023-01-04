@@ -9,17 +9,8 @@ class Footer extends React.Component{
   <Container
     as="footer"
     role="contentinfo"
-    py={{
-      base: '12',
-      md: '16',
-    }} 
   >
-    <Stack
-      spacing={{
-        base: '4',
-        md: '5',
-      }}
-    >
+    <Stack>
       <Stack justify="space-between" direction="row" align="center">
         <ButtonGroup variant="ghost">
           <IconButton

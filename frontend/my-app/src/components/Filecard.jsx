@@ -9,30 +9,43 @@ import {Card,
   MenuButton, 
   MenuList, 
   MenuItem, 
-  Image,
-  IconButton,
+  VStack,
+  IconButton
 } from '@chakra-ui/react';
 import {GoKebabVertical} from 'react-icons/go';
 import {BiCloudDownload}from 'react-icons/bi';
 import {MdOpenWith} from 'react-icons/md';
 import {AiOutlineInfoCircle} from 'react-icons/ai';
-
+import fileDownload from 'js-file-download';
+import axios from 'axios';
 
 function Filecard(props){
-        const url = props.url;
-        const name = props.name;
+        const url = props.file.fileUrl;
+        const name = props.file.name;
+        const uploaded_by = props.file.uploaded_by;
+
+        const handleDownload = () => {
+          axios
+            .get(url, {
+              responseType: 'blob',
+            })
+            .then(res => {
+              fileDownload(res.data, name);
+            });
+        };
+
         return (
-            <Card maxW='200px'>
-  <CardBody p='-10'>
-    <Image
-      src={url}
-      alt='File preview'
-    />
+            <Card maxW='200px'  m='25px' boxShadow='xl'>
+  <CardBody p='5' >
+    {name}
   </CardBody>
   <Divider />
-  <CardFooter bg='gray.100' h='30%'>
+  <CardFooter h='30%' bg='gray.100'>
     <HStack>
-    <Text mr='10' fontSize='sm'>{name}</Text>
+      <VStack>
+      <Text>Uploaded by</Text>
+      <Text>{uploaded_by}</Text>
+      </VStack>
     <Menu isLazy>
   <MenuButton
     as={IconButton}
@@ -46,11 +59,11 @@ function Filecard(props){
     }}
   />
   <MenuList>
-    <MenuItem icon={<BiCloudDownload />}>
-      Download
-    </MenuItem>
     <MenuItem icon={<MdOpenWith />}>
       Open
+    </MenuItem>
+    <MenuItem icon={<BiCloudDownload />} onClick={handleDownload}>
+      Download
     </MenuItem>
     <MenuItem icon={<AiOutlineInfoCircle />}>
       Info
