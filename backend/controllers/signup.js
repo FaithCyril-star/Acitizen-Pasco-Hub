@@ -31,19 +31,19 @@ User.findOne({ email: req.body.email }, function (err, docs) {
   if (err) {
     return res.status(400).send(err);
   } 
-  if (docs)  {
-    return res.status(400).send("That user already exisits!");
-  };
-});
+  else if (docs)  {
+    return res.status(400).send("Account already exisits!");
+  }
 
 // Hash the user's req.body.password
 bcrypt.hash(req.body.password, saltRounds, function (err, hash){
   if (err) {
     return res.status(500).send(err);
-  };
+  }
 
   // replace hash with hashed req.body.password
-  req.body.password = hash;
+ 
+   req.body.password = hash;
 
   // Insert the new user into the "users" collection
   const newUser = new User({
@@ -58,6 +58,6 @@ bcrypt.hash(req.body.password, saltRounds, function (err, hash){
     .catch((err) => {
       res.status(500).send(err);
     });
-})};
+})})};
 
 module.exports = { addUser };
