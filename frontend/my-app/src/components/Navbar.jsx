@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { FiMenu } from 'react-icons/fi';
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function Navbar(){
   const navigate = useNavigate();
@@ -16,10 +17,10 @@ function Navbar(){
   return (
       <Box>
             {isDesktop ? (
-              <Flex flex="1" >
+              <Flex flex="1" boxShadow='md' h='20'>
                 <ButtonGroup variant="link" spacing="8" m='40px' mt='20px'>
-                  {['Home', 'About'].map((item) => (
-                    <Button key={item}>{item}</Button>
+                  {['Home', 'About','Feedback'].map((item) => (
+                    <Link key={item} to='/'>{item}</Link>
                   ))}
                 </ButtonGroup>
                 <Spacer />

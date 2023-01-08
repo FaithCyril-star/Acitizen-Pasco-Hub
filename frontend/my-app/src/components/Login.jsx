@@ -9,35 +9,52 @@ import {
     IconButton,
     InputGroup,
     InputRightElement,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
     Heading,
     Text,
-    Link
+    Link,
   } from '@chakra-ui/react';
-  import { useDisclosure } from '@chakra-ui/react';
   import { useNavigate } from 'react-router-dom';
+  import axios from 'axios';
 
 function Login(props){
         const marginTop = props.mt 
         const [passwordType,setPasswordtype] = useState("password")
-        const { isOpen, onOpen, onClose } = useDisclosure()
+        const [formData,setFormData] = useState({})
         const navigate = useNavigate();
+
+        
+        function handleSubmit(event){
+            event.preventDefault()
+                axios.post(`http://localhost:9000/login`, formData)
+                .then((response) => {
+                        console.log(response.data)
+                })
+                .catch((error) => {
+                    console.error(error.response.data)
+                });
+    }
+        
 
         return (
             <div>
             <Heading textAlign='center' mt='-10'>Login</Heading>
+            <form onSubmit={handleSubmit}>
               <FormControl w={400} margin='auto' mt={marginTop} isRequired>
-                    <FormLabel >Email</FormLabel>
-                    <Input type="email"/>
+                    <FormLabel >Username</FormLabel>
+                    <Input 
+                    id="username"
+                    name="username"
+                    type="text"
+                    onChange={(event) =>
+                    setFormData({ ...formData, [event.target.name]: event.target.value })}/>
                     <FormLabel>Password</FormLabel>
                     <InputGroup>
-                    <Input type={passwordType}/>
+                    <Input 
+                    id="password"
+                    name="password"
+                    type={passwordType}
+                    onChange={(event) =>
+                    setFormData({ ...formData, [event.target.name]: event.target.value })}/>
                     <InputRightElement><IconButton 
                     w = "10"
                     h = "9" 
@@ -54,27 +71,11 @@ function Login(props){
                     <Center>
                     <Button 
                     colorScheme='red'
-                    mt="8" type="submit" onClick={onOpen}
+                    mt="8" type="submit" 
                     >Submit</Button>
                     </Center>
-                    <Modal isOpen={isOpen} onClose={onClose}>
-                    <ModalOverlay />
-                    <ModalContent>
-                    <ModalHeader>Login</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                        Do you want to login as?
-                    </ModalBody>
-
-                    <ModalFooter>
-                        <Button colorScheme='red' mr={3} onClick={onClose}>
-                        User
-                        </Button>
-                        <Button colorScheme='red' variant='ghost'>Admin</Button>
-                    </ModalFooter>
-                    </ModalContent>
-                </Modal>
                 </FormControl>  
+                </form>
             </div>
         );
     }

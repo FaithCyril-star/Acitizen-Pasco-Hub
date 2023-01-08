@@ -2,10 +2,10 @@ import React, { useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import FileCard from '../components/Filecard';
 import axios from 'axios';
-import {Heading,Text,Flex,Box,IconButton,Button, Center,Divider,Spacer} from '@chakra-ui/react';
+import {Heading,Text,Flex,Box,Button, Center,Divider,Spacer} from '@chakra-ui/react';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { useNavigate } from 'react-router-dom';
-import {BiArrowBack} from 'react-icons/bi';
+import Navbar from '../components/Navbar';
 // import DocViewer, { DocViewerRenderers } from 'react-doc-viewer';
 
 
@@ -35,14 +35,17 @@ function Course() {
 
         if (loading) {
           return (
-            <Flex my="20%" align="center" justify="center">
-              <BeatLoader
-                color="#ed3737"
-                size={50}
-                aria-label="Loading Spinner"
-                data-testid="loader"
-              />
-            </Flex>
+            <div>
+              <Navbar />
+              <Flex my="20%" align="center" justify="center">
+                <BeatLoader
+                  color="#ed3737"
+                  size={50}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                />
+              </Flex>
+            </div>
           );
         }
 
@@ -52,21 +55,13 @@ function Course() {
 
         return courseContent ? (
           <Box>
+            <Navbar />
             <Flex direction={'row'}>
               <Heading m="30px">{courseContent.name}</Heading>
               <Spacer />
-              <IconButton
-                m="30px"
-                isRound="true"
-                colorScheme="red"
-                onClick={() => navigate('/')}
-                icon={<BiArrowBack />}
-              >
-                Back
-              </IconButton>
             </Flex>
-            <Divider variant="solid" />
-            <Text m="20px">{courseContent.description}</Text>
+            <Text ml="20px">{courseContent.description}</Text>
+            <Divider variant="solid" mt="20px" />
             <Flex direction="row">
               {courseContent.files.map(file => (
                 <FileCard file={file} />
@@ -74,17 +69,19 @@ function Course() {
             </Flex>
           </Box>
         ) : (
-          <Box my="15%">
+          <Box>
+            <Navbar />
             <Heading
               color="#ed3737"
               textAlign="center"
               fontSize={'60'}
               fontFamily="Roboto Slab"
+              mt="80px"
             >
               Course Not Found :-(
             </Heading>
             <Center>
-              <Button mt="20px" colorScheme="red" onClick={() => navigate('/')}>
+              <Button colorScheme="red" onClick={() => navigate('/')}>
                 Go Home
               </Button>
             </Center>

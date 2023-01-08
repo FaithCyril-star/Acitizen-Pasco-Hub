@@ -34,8 +34,6 @@ function Signup(props) {
         function handleSubmit(event){
             event.preventDefault()
             if (formData.password1 === formData.password){
-                event.preventDefault();
-                
                 const userObject = { ...formData };
 
                 delete userObject.password1;
@@ -51,7 +49,6 @@ function Signup(props) {
                         })
                 })
                 .catch((error) => {
-                    console.error(error)
                     toast({
                         title: 'Sign up failed',
                         description: `${error.response.data}`,
@@ -64,7 +61,6 @@ function Signup(props) {
         }
 
         function handlePasswordMatch(){
-            console.log(formData.password,formData.password1)
             if (formData.password1 || formData.password){ return (formData.password1 === formData.password) ? (<Alert height='50px' status='success'>
                     <AlertIcon />
                     <AlertTitle>Passwords match!</AlertTitle>
@@ -73,7 +69,6 @@ function Signup(props) {
                     <AlertIcon />
                     <AlertTitle>Passwords do not match!</AlertTitle>
                     </Alert>)}
-
         }
 
         return (
