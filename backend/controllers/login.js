@@ -28,7 +28,9 @@ User.findOne({ username: req.body.username }, (err, user) => {
     if (result) {
         // The passwords match, so the user is authenticated
         req.session.authenticated = true;  // create a new session for the user
-        res.send('Welcome, ' + user.username + '!');
+        if (user.is_admin === true) {res.send('Welcome, admin ' + user.username + '!');}
+        else
+        {res.send('Welcome, ' + user.username + '!');}
     } else {
         // The passwords do not match, so the login attempt is denied
         res.status(400).send('Invalid username or password');
@@ -36,6 +38,8 @@ User.findOne({ username: req.body.username }, (err, user) => {
     });
 });
 };
+
+
 
 module.exports = {loginUser};
 
