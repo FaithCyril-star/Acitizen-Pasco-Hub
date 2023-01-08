@@ -1,23 +1,17 @@
 import {
-  Box,
   Spacer,
   Button,
   ButtonGroup,
   Flex,
-  IconButton,
-  useBreakpointValue
 } from '@chakra-ui/react';
-import { FiMenu } from 'react-icons/fi';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
 function Navbar(){
   const navigate = useNavigate();
-  const isDesktop = useBreakpointValue({ base: false, lg: true })
+
   return (
-      <Box>
-            {isDesktop ? (
-              <Flex flex="1" boxShadow='md' h='20'>
+            <Flex flex="1" boxShadow='md' h='20'>
                 <ButtonGroup variant="link" spacing="8" m='40px' mt='20px'>
                   {['Home', 'About','Feedback'].map((item) => (
                     <Link key={item} to='/'>{item}</Link>
@@ -38,14 +32,6 @@ function Navbar(){
             </Button>
                 </ButtonGroup>
               </Flex>
-            ) : (
-              <IconButton
-                variant="ghost"
-                icon={<FiMenu fontSize="1.25rem" />}
-                aria-label="Open Menu"
-              />
-            )}
-            </Box>
   )
 };
 
