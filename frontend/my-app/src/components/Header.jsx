@@ -7,7 +7,7 @@ class Header extends Component {
             <div>
                 <Heading 
                 color = "#ed3737"
-                mt={this.props.mt} 
+                pt={this.props.pt} 
                 textAlign="center" 
                 fontSize={"60"}
                 fontFamily='Roboto Slab'>Acity Pasco Hub</Heading>

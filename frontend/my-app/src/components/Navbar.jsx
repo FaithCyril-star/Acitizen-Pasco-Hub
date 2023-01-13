@@ -11,11 +11,11 @@ function Navbar(){
   const navigate = useNavigate();
 
   return (
-            <Flex flex="1" boxShadow='md' h='20'>
+            <Flex flex="1" boxShadow ='md' h='20' zIndex={'1'} position='fixed' w='100%' bg='white'>
                 <ButtonGroup variant="link" spacing="8" m='40px' mt='20px'>
-                  {['Home', 'About','Feedback'].map((item) => (
-                    <Link key={item} to='/'>{item}</Link>
-                  ))}
+                  <Link key="home" to="/">Home</Link>
+                  <Link key="about" to="/">About</Link>
+                  <Link key="feedback" to="/feedback">Feedback</Link>
                 </ButtonGroup>
                 <Spacer />
                 <ButtonGroup spacing="3" m='40px' mt='20px'>

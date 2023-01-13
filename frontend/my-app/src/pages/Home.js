@@ -8,8 +8,8 @@ import Navbar from '../components/Navbar';
 function Home() {
     return (
       <Box>
-        <Navbar />
-        <Header mt="80px" />
+        <Navbar/>
+        <Header pt="40" />
         <Search width="40%" placeholder="Type course name here..." />
         <Box float="left">
           <Footer />

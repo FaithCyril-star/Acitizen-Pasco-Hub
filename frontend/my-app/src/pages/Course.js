@@ -37,7 +37,7 @@ function Course() {
           return (
             <div>
               <Navbar />
-              <Flex my="20%" align="center" justify="center">
+              <Flex pt="40" align="center" justify="center">
                 <BeatLoader
                   color="#ed3737"
                   size={50}
@@ -56,13 +56,13 @@ function Course() {
         return courseContent ? (
           <Box>
             <Navbar />
-            <Flex direction={'row'}>
+            <Flex pt="80px" direction={'row'}>
               <Heading m="30px">{courseContent.name}</Heading>
               <Spacer />
             </Flex>
             <Text ml="20px">{courseContent.description}</Text>
             <Divider variant="solid" mt="20px" />
-            <Flex direction="row">
+            <Flex direction="row" flexWrap="wrap">
               {courseContent.files.map(file => (
                 <FileCard file={file} />
               ))}
@@ -76,7 +76,7 @@ function Course() {
               textAlign="center"
               fontSize={'60'}
               fontFamily="Roboto Slab"
-              mt="80px"
+              pt="40"
             >
               Course Not Found :-(
             </Heading>
