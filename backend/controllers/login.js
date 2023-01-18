@@ -28,6 +28,7 @@ User.findOne({ username: req.body.username }, (err, user) => {
     if (result) {
         // The passwords match, so the user is authenticated
         req.session.authenticated = true;  // create a new session for the user
+        req.session.user = user._id
         if (user.is_admin === true) {res.send('Welcome, admin ' + user.username + '!');}
         else
         {res.send('Welcome, ' + user.username + '!');}
@@ -39,7 +40,28 @@ User.findOne({ username: req.body.username }, (err, user) => {
 });
 };
 
+function isloggedIn(req,res) {
+    if (req.session.user){
+        res.status(200).send(true)
+    }
+    else{
+        res.status(200).send(false);
+    }
+}
 
 
-module.exports = {loginUser};
+function logOut(req,res) {
+    if (req.session.user) {
+      req.session.destroy((err) => {
+        if (err) {
+          res.status(200).send("Unable to log out");
+        } else {
+          res.send("Logout successful");
+        }
+      });
+    }
+};
+
+
+module.exports = {loginUser,isloggedIn,logOut};
 

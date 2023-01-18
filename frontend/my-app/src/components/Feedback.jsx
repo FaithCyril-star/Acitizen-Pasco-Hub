@@ -25,16 +25,16 @@ class Feedback extends Component {
                     name="name"
                     type="text"/>
                     <FormLabel>Year</FormLabel>
-                    <Select placeholder='Select year'>
+                    <Select type = "text" placeholder='Select year'>
                     <option value='year'>Level 100</option>
                     <option value='year'>Level 200</option>
                     <option value='year'>Level 300</option>
                     <option value='year'>Level 400</option>
                     </Select>
-                    <FormLabel>Course</FormLabel>
+                    <FormLabel>Program of Study</FormLabel>
                     <Input 
-                    id="course"
-                    name="course"
+                    id="program"
+                    name="program"
                     type="text"/>
                     <FormLabel>Message</FormLabel>
                     <Textarea/>

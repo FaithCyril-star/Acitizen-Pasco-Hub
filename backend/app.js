@@ -13,7 +13,7 @@ const uploadRouter = require('./routes/upload');
 const courseRouter = require("./routes/course");
 const signupRouter = require("./routes/signup");
 const loginRouter = require("./routes/login");
-
+const feedbackRouter = require("./routes/feedback");
 
 // Set up a route that serves a message at ::9000
 app.get('/', (req, res) => {
@@ -21,7 +21,11 @@ app.get('/', (req, res) => {
 });
 
 //middleware
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(session({
@@ -36,7 +40,8 @@ app.use("/admin", adminRouter);
 app.use("/upload",uploadRouter);
 app.use("/courses", courseRouter);
 app.use("/signup",signupRouter);
-app.use("/login",loginRouter);
+app.use("/",loginRouter);
+app.use("/feedback", feedbackRouter);
 
 
 

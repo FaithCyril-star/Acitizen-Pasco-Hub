@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {ViewIcon,ViewOffIcon} from '@chakra-ui/icons'
 import {
     FormControl,
@@ -20,6 +20,7 @@ function Login(props){
         const marginTop = props.mt 
         const [passwordType,setPasswordtype] = useState("password")
         const [formData,setFormData] = useState({})
+        const [isLoggedIn, setisLoggedIn] = useState(false);
         const navigate = useNavigate();
 
         
@@ -27,12 +28,21 @@ function Login(props){
             event.preventDefault()
                 axios.post(`http://localhost:9000/login`, formData)
                 .then((response) => {
-                        console.log(response.data)
+                        setisLoggedIn(true);
                 })
                 .catch((error) => {
                     console.error(error.response.data)
                 });
     }
+
+        useEffect(() => {
+            // Checking if user is not loggedIn
+            if (isLoggedIn) {
+            navigate("/");
+            } else {
+            navigate("/login");
+            }
+        }, [navigate, isLoggedIn]);
         
 
         return (
