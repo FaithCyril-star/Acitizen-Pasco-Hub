@@ -26,12 +26,14 @@ User.findOne({ username: req.body.username }, (err, user) => {
     return res.status(500).send(err);
     };
     if (result) {
-        // The passwords match, so the user is authenticated
-        req.session.authenticated = true;  // create a new session for the user
-        req.session.user = user._id
-        if (user.is_admin === true) {res.send('Welcome, admin ' + user.username + '!');}
-        else
-        {res.send('Welcome, ' + user.username + '!');}
+      // The passwords match, so the user is authenticated
+      const userSession = user; // creating user session to keep user loggedin also on refresh
+      req.session.user = userSession;
+      if (user.is_admin === true) {
+        res.status(200).send("Welcome admin! ");
+      } else {
+        res.status(200).send("Welcome ! ");
+      }
     } else {
         // The passwords do not match, so the login attempt is denied
         res.status(400).send('Invalid username or password');
@@ -41,12 +43,7 @@ User.findOne({ username: req.body.username }, (err, user) => {
 };
 
 function isloggedIn(req,res) {
-    if (req.session.user){
-        res.status(200).send(true)
-    }
-    else{
-        res.status(200).send(false);
-    }
+    res.status(200).send(req.session.user)//if logged in non-null object is returned else null
 }
 
 
@@ -54,9 +51,9 @@ function logOut(req,res) {
     if (req.session.user) {
       req.session.destroy((err) => {
         if (err) {
-          res.status(200).send("Unable to log out");
+          res.status(400).send("Unable to log out");
         } else {
-          res.send("Logout successful");
+          res.status(200).send("Logout successful");
         }
       });
     }
