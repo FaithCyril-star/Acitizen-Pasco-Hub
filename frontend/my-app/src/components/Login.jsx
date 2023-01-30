@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import {ViewIcon,ViewOffIcon} from '@chakra-ui/icons'
 import {
     FormControl,
@@ -12,6 +12,7 @@ import {
     Heading,
     Text,
     Link,
+    useToast
   } from '@chakra-ui/react';
   import { useNavigate } from 'react-router-dom';
   import axios from 'axios';
@@ -20,30 +21,30 @@ function Login(props){
         const marginTop = props.mt 
         const [passwordType,setPasswordtype] = useState("password")
         const [formData,setFormData] = useState({})
-        const [isLoggedIn, setisLoggedIn] = useState(false);
+
         const navigate = useNavigate();
+        const toast = useToast()
 
         
         function handleSubmit(event){
             event.preventDefault()
-                axios.post(`http://localhost:9000/login`, formData)
-                .then((response) => {
-                        setisLoggedIn(true);
-                })
-                .catch((error) => {
-                    console.error(error.response.data)
-                });
+            axios.post(`http://localhost:9000/login`, formData,{
+      withCredentials: true})
+            .then((response) => { 
+                localStorage.setItem('user', JSON.stringify(response.data))
+                navigate('/');})
+            .catch((error) => {
+                toast({
+                        title: 'Login failed',
+                        description: `${error.response.data}`,
+                        status: 'error',
+                        duration: 9000,
+                        isClosable: true,
+                        })
+            })
+            
     }
 
-        useEffect(() => {
-            // Checking if user is not loggedIn
-            if (isLoggedIn) {
-            navigate("/");
-            } else {
-            navigate("/login");
-            }
-        }, [navigate, isLoggedIn]);
-        
 
         return (
             <div>

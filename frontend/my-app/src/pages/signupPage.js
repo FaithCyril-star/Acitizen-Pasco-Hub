@@ -8,7 +8,7 @@ class signupPage extends Component {
     render() {
         return (
           <Box>
-            <Header mt="20px" />
+            <Header pt="95px"/>
             <Center>
               <Box
                 bg="white"

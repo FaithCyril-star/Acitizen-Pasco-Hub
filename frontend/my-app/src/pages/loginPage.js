@@ -7,7 +7,7 @@ class loginPage extends Component {
     render() {
         return (
           <Box>
-            <Header mt="20px" />
+            <Header pt="95px" />
             <Center>
               <Box
                 m="5%"

@@ -27,13 +27,9 @@ User.findOne({ username: req.body.username }, (err, user) => {
     };
     if (result) {
       // The passwords match, so the user is authenticated
-      const userSession = user; // creating user session to keep user loggedin also on refresh
+      const userSession = {name: user.username, email: user.email, id:user._id}; // creating user session to keep user loggedin also on refresh
       req.session.user = userSession;
-      if (user.is_admin === true) {
-        res.status(200).send("Welcome admin! ");
-      } else {
-        res.status(200).send("Welcome ! ");
-      }
+      res.status(200).send(req.session.user);
     } else {
         // The passwords do not match, so the login attempt is denied
         res.status(400).send('Invalid username or password');
@@ -43,7 +39,12 @@ User.findOne({ username: req.body.username }, (err, user) => {
 };
 
 function isloggedIn(req,res) {
-    res.status(200).send(req.session.user)//if logged in non-null object is returned else null
+    if (req.session.user) {
+        res.status(200).send(req.session.user);
+    }
+    else{
+        res.status(500).send("Not logged in")
+    }
 }
 
 

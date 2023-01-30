@@ -5,8 +5,7 @@ import axios from 'axios';
 import {Heading,Text,Flex,Box,Button, Center,Divider,Spacer} from '@chakra-ui/react';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-// import DocViewer, { DocViewerRenderers } from 'react-doc-viewer';
+
 
 
 function Course() {
@@ -36,7 +35,6 @@ function Course() {
         if (loading) {
           return (
             <div>
-              <Navbar />
               <Flex pt="40" align="center" justify="center">
                 <BeatLoader
                   color="#ed3737"
@@ -49,13 +47,29 @@ function Course() {
           );
         }
 
-        if (error) {
-          
+        if (error){
+          return (
+            <Box>
+              <Heading
+                color="#ed3737"
+                textAlign="center"
+                fontSize={'60'}
+                fontFamily="Roboto Slab"
+                pt="40"
+              >
+              {error}
+              </Heading>
+              <Center>
+                <Button colorScheme="red" onClick={() => navigate('/')}>
+                  Go Home
+                </Button>
+              </Center>
+            </Box>
+          );
         }
 
         return courseContent ? (
           <Box>
-            <Navbar />
             <Flex pt="80px" direction={'row'}>
               <Heading m="30px">{courseContent.name}</Heading>
               <Spacer />
@@ -70,14 +84,13 @@ function Course() {
           </Box>
         ) : (
           <Box>
-            <Navbar />
             <Heading
               color="#ed3737"
               textAlign="center"
               fontSize={'60'}
               fontFamily="Roboto Slab"
               pt="40"
-            >
+            > 404 Error <br/>
               Course Not Found :-(
             </Heading>
             <Center>

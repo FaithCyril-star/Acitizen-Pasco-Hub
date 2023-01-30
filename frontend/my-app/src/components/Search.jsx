@@ -17,7 +17,7 @@ function Search(props){
         const navigate = useNavigate();
         
         function handleClick (event) {
-        navigate(`/courses/${courseName}`);
+            if (courseName) navigate(`/courses/${courseName}`);
         }
 
         function handleKeyDown(event){
@@ -31,7 +31,7 @@ function Search(props){
             <InputGroup size={size} w={width}>
                 <Input
                     pr='4.5rem'
-                    type='text'
+                    type='search'
                     placeholder={placeholder}
                     _placeholder={{ color: 'black' }}
                     onChange={event => setCourseName(event.currentTarget.value)}
