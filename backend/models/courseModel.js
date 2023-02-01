@@ -6,7 +6,7 @@ const courseSchema = new Schema({
   // unique identifier for the course
   name: { type: String, required: true }, // name of the course
   description: { type: String, required: true }, // description of the course
-  files: [
+  files: { type:[
     {
       _id: { type: mongoose.Schema.Types.ObjectId, auto: true }, // unique identifier for the file
       uploaded_by: {
@@ -28,7 +28,7 @@ const courseSchema = new Schema({
         required: true,
       }, // MIME type of the file
     },
-  ],
+  ],default:[]},
   // array of references to files associated with the course
 });
 

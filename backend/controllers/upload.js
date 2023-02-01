@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Course = require("../models/courseModel");
+const  User = require("../models/userModel");
 const {
   BlobServiceClient,
   StorageSharedKeyCredential,
@@ -22,7 +23,7 @@ const containerClient = blobServiceClient.getContainerClient(
 
 //creating endpoint to add a file to a course
 function uploadFile(req, res) {
-  const { course_name, uploaded_by } = req.body;
+  const { course_name } = req.body;
 
   // Read the contents of the file into a buffer and it's other properties
   const _id = new mongoose.Types.ObjectId();
@@ -55,18 +56,27 @@ function uploadFile(req, res) {
   const fileUrl = blockBlobClient.url;
 
   //new file object to be added to course
+  const uploaded_by = req.session.user.name;
   const newFile = { _id, uploaded_by, name, fileUrl, size, type };
-  const query = Course.findOneAndUpdate(
+
+  Promise.all(
+    [ Course.findOneAndUpdate(
     { name: course_name },
     { $addToSet: { files: newFile } },
     { new: true }
-  );
-  query
-    .exec()
-    .then((doc) => res.json(doc))
+  ).exec(),
+
+    User.findOneAndUpdate(
+    { username: uploaded_by },
+    { $addToSet: { uploads: newFile } },
+    { new: true }
+  ).exec()
+
+]).then(() => res.status(200).json("Uploaded successfully"))
     .catch((err) => {
       res.status(500).send(err);
     });
 }
+
 
 module.exports = { uploadFile };
