@@ -31,7 +31,6 @@ function Login(props){
             axios.post(`http://localhost:9000/login`, formData,{
       withCredentials: true})
             .then((response) => { 
-                localStorage.setItem('user', JSON.stringify(response.data))
                 navigate('/');})
             .catch((error) => {
                 toast({
