@@ -3,7 +3,7 @@ import Signup from '../components/Signup';
 import {Box, Center} from '@chakra-ui/react';
 import Header from '../components/Header';
 
-class signupPage extends Component {
+class SignupPage extends Component {
 
     render() {
         return (
@@ -30,4 +30,4 @@ class signupPage extends Component {
     }
 }
 
-export default signupPage;
+export default SignupPage;

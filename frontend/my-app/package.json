@@ -43,7 +43,7 @@
     ]
   },
   "devDependencies": {
+    "dotenv": "^16.0.3",
     "react-router-dom": "^6.6.0"
-  },
-  "proxy": "http://localhost:9000/"
+  }
 }

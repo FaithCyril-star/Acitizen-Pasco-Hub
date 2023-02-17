@@ -13,6 +13,7 @@ class FeedbackPage extends Component {
           <Box
             m="5%"
             p="90px"
+            pt="95px" 
             w="40%"
             border="5px"
             borderRadius="10%"

@@ -17,19 +17,20 @@ class Feedback extends Component {
             <div>
             <Heading textAlign='center' mt='-10'>Feedback</Heading>
             <Text fontSize='sm' textAlign='center' mb='5'>Tell me what you think!</Text>
-            <form>
-              <FormControl w={400} margin='auto' mt={this.props.marginTop} isRequired>
+            <form action="https://formsubmit.co/6eba76b99c2a7533c21087e46dcc82da" method="POST">
+              <FormControl w={400} margin='auto' mt={this.props.marginTop} isRequired
+                >
                     <FormLabel>Name</FormLabel>
                     <Input 
                     id="name"
                     name="name"
                     type="text"/>
                     <FormLabel>Year</FormLabel>
-                    <Select type = "text" placeholder='Select year'>
-                    <option value='year'>Level 100</option>
-                    <option value='year'>Level 200</option>
-                    <option value='year'>Level 300</option>
-                    <option value='year'>Level 400</option>
+                    <Select type = "text" placeholder='Select year' name='year'>
+                    <option value='Level 100'>Level 100</option>
+                    <option value='Level 200'>Level 200</option>
+                    <option value='Level 300'>Level 300</option>
+                    <option value='Level 400'>Level 400</option>
                     </Select>
                     <FormLabel>Program of Study</FormLabel>
                     <Input 
@@ -37,7 +38,7 @@ class Feedback extends Component {
                     name="program"
                     type="text"/>
                     <FormLabel>Message</FormLabel>
-                    <Textarea/>
+                    <Textarea id='message' name='message'/>
                     <Center>
                     <Button 
                     colorScheme='red'

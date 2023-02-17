@@ -3,7 +3,7 @@ import Login from '../components/Login';
 import Header from '../components/Header';
 import {Box, Center} from '@chakra-ui/react';
 
-class loginPage extends Component {
+class LoginPage extends Component {
     render() {
         return (
           <Box>
@@ -29,4 +29,4 @@ class loginPage extends Component {
     }
 }
 
-export default loginPage;
+export default LoginPage;

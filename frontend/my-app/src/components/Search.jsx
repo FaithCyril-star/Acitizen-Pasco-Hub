@@ -21,7 +21,7 @@ function Search(props){
         }
 
         function handleKeyDown(event){
-        if (event.key === 'Enter') {
+        if (courseName && event.key === 'Enter') {
         navigate(`/courses/${courseName}`);
         }
         }
