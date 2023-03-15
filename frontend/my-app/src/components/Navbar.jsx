@@ -12,7 +12,7 @@ function Navbar(){
   const navigate = useNavigate();
 
   return (
-            <Flex flex="1" boxShadow ='md' h='20' zIndex={'1'} position='fixed' w='100%' bg='white'>
+            <Flex flex="1" boxShadow ='md' h='20' zIndex={'100'} position='fixed' w='100%' bg='white'>
                 <ButtonGroup variant="link" spacing="8" m='40px' mt='20px'>
                   <Link key="home" to="/">Home</Link>
                   <Link key="about" to="/about">About</Link>

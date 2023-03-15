@@ -1,28 +1,35 @@
 import React from 'react';
 import {Card,
   CardBody,
-  CardFooter, 
-  HStack,
+  CardFooter,
   Text,
+  Spacer,
   Divider, 
   Menu,
   MenuButton, 
   MenuList, 
   MenuItem, 
-  VStack,
   IconButton
 } from '@chakra-ui/react';
 import {GoKebabVertical} from 'react-icons/go';
 import {BiCloudDownload}from 'react-icons/bi';
 import {MdOpenWith} from 'react-icons/md';
-import {AiOutlineInfoCircle} from 'react-icons/ai';
 import fileDownload from 'js-file-download';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
 
 function Filecard(props){
         const url = props.file.fileUrl;
         const name = props.file.name;
         const uploaded_by = props.file.uploaded_by;
+
+        const navigate = useNavigate();
+
+        const handleFilePreview = () => {
+
+              navigate(`${window.location.pathname}/${name}`, { state: { docUrl:url} });
+        }
 
         const handleDownload = () => {
           axios
@@ -35,17 +42,14 @@ function Filecard(props){
         };
 
         return (
-            <Card maxW='200px'  m='25px' boxShadow='xl'>
+            <Card w='250px' h='250px' m='25px' boxShadow='xl'>
   <CardBody p='5' >
     {name}
   </CardBody>
   <Divider />
-  <CardFooter h='30%' bg='gray.100'>
-    <HStack>
-      <VStack>
-      <Text>Uploaded by</Text>
-      <Text>{uploaded_by}</Text>
-      </VStack>
+  <CardFooter as='flex' h='30%' bg='gray.100'>
+      <Text>Uploaded by {uploaded_by}</Text>
+      <Spacer />
     <Menu isLazy>
   <MenuButton
     as={IconButton}
@@ -59,22 +63,20 @@ function Filecard(props){
     }}
   />
   <MenuList>
-    <MenuItem icon={<MdOpenWith />}>
+    <MenuItem icon={<MdOpenWith />} onClick={handleFilePreview}>
       Open
     </MenuItem>
     <MenuItem icon={<BiCloudDownload />} onClick={handleDownload}>
       Download
     </MenuItem>
-    <MenuItem icon={<AiOutlineInfoCircle />}>
-      Info
-    </MenuItem>
   </MenuList>
 </Menu>
-</HStack>
   </CardFooter>
 </Card>
         );
     }
 
 export default Filecard;
+
+
 

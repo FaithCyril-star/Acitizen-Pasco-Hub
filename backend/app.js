@@ -1,13 +1,9 @@
 const express = require('express');
-const session = require("express-session");
 const cors = require("cors");
-const MongoStore = require("connect-mongodb-session")(session);
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
 require("./config/mongo").connect();
-
-const MAX_AGE = 1000 * 60 * 60 * 24 * 7; // 2 hours( time is in milliseconds)
 
 const app = express();
 
@@ -31,30 +27,11 @@ const corsOptions = {
   credentials: true,
 };
 
-const mongoDBStore = new MongoStore( {uri: `mongodb://${process.env.DB_HOST}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}.mongo.cosmos.azure.com:${process.env.DB_PORT}/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@${process.env.DB_HOST}@`,
-expiresKey: `_ts`,
-expiresAfterSeconds: 60 * 60 * 24 * 14 ,
-collection: "mySessions"})
-
-const sessionOption = {
-  secret: process.env.SESSION_KEY, // used to sign the session ID cookie
-  name: "session-id",
-  store: mongoDBStore,
-  cookie: {
-    maxAge: MAX_AGE,
-    sameSite: false,
-    secure: false,
-  },
-  resave: false,
-  saveUninitialized: true,
-};
 
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cookieParser());
-app.use(session(sessionOption));
-
 
 //routed endpoints
 app.use("/admin", adminRouter);

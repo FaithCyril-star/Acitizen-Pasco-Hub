@@ -70,7 +70,7 @@ function Course() {
 
         return courseContent ? (
           <Box>
-            <Flex pt="80px" direction={'row'}>
+            <Flex pt="80px" direction="row" justifyContent="center">
               <Heading m="30px">{courseContent.name}</Heading>
               <Spacer />
             </Flex>

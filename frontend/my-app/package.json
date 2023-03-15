@@ -5,11 +5,13 @@
   "dependencies": {
     "@chakra-ui/icons": "^2.0.13",
     "@chakra-ui/react": "^2.4.1",
+    "@cyntler/react-doc-viewer": "^1.12.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
+    "api2pdf": "^2.0.3",
     "axios": "^1.2.2",
     "framer-motion": "^6.5.1",
     "js-file-download": "^0.4.12",
