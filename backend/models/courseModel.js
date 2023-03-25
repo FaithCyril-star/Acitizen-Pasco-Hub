@@ -12,6 +12,7 @@ const courseSchema = new Schema({
       uploaded_by: {
         type: String,
         required: true,
+        default: "anonymous"
       },
       name: {
         type: String,
@@ -19,8 +20,12 @@ const courseSchema = new Schema({
       }, // name of the file
       fileUrl: { type: String, required: true },
       //file itself
+      filePreview: {type: String, 
+        required: true, 
+        default: "not defined" },
+      //filepreview
       size: {
-        type: Number,
+        type: String,
         required: true,
       }, // size of the file in bytes
       type: {

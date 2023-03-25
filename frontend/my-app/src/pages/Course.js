@@ -76,11 +76,20 @@ function Course() {
             </Flex>
             <Text ml="20px">{courseContent.description}</Text>
             <Divider variant="solid" mt="20px" />
+            { courseContent.files.length !== 0 ? 
             <Flex direction="row" flexWrap="wrap">
               {courseContent.files.map(file => (
                 <FileCard file={file} />
               ))}
-            </Flex>
+            </Flex> : <Heading
+                      color="#ed3737"
+                      textAlign="center"
+                      fontSize={'60'}
+                      fontFamily="Roboto Slab"
+                      pt="20"
+                    > No files uploaded yet
+                    </Heading>
+            }
           </Box>
         ) : (
           <Box>

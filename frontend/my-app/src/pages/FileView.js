@@ -2,7 +2,7 @@ import React from 'react';
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 import { useLocation } from 'react-router-dom';
 
-function FilePreview() {
+function FileView() {
 
     const location = useLocation();
 
@@ -33,7 +33,7 @@ function FilePreview() {
       );
 };
 
-export default FilePreview;
+export default FileView;
 
 
 

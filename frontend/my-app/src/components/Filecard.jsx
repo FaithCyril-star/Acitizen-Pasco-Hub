@@ -9,7 +9,9 @@ import {Card,
   MenuButton, 
   MenuList, 
   MenuItem, 
-  IconButton
+  IconButton,
+  Image,
+  Tooltip
 } from '@chakra-ui/react';
 import {GoKebabVertical} from 'react-icons/go';
 import {BiCloudDownload}from 'react-icons/bi';
@@ -23,11 +25,14 @@ function Filecard(props){
         const url = props.file.fileUrl;
         const name = props.file.name;
         const uploaded_by = props.file.uploaded_by;
+        const thumbnailImage = props.file.filePreview;
+        const size = props.file.size;
+
+        const cardMessage = <div>Uploaded by: {uploaded_by}<br/>Size: {size}</div>;
 
         const navigate = useNavigate();
 
-        const handleFilePreview = () => {
-
+        const handleFileView = () => {
               navigate(`${window.location.pathname}/${name}`, { state: { docUrl:url} });
         }
 
@@ -42,13 +47,21 @@ function Filecard(props){
         };
 
         return (
-            <Card w='250px' h='250px' m='25px' boxShadow='xl'>
+          
+            <Card w='250px' h='300px' m='25px' boxShadow='xl'>
+  <Tooltip label={cardMessage} shouldWrapChildren={true} placement='auto-start'>
   <CardBody p='5' >
-    {name}
+  <Image
+      src={thumbnailImage}
+      alt='file preview'
+      w="300px" 
+      h="190px"
+    />
   </CardBody>
+  </Tooltip>
   <Divider />
-  <CardFooter as='flex' h='30%' bg='gray.100'>
-      <Text>Uploaded by {uploaded_by}</Text>
+  <CardFooter as='flex' h='25%' bg='gray.100'>
+      <Text fontSize='xs'>{name}</Text>
       <Spacer />
     <Menu isLazy>
   <MenuButton
@@ -63,7 +76,7 @@ function Filecard(props){
     }}
   />
   <MenuList>
-    <MenuItem icon={<MdOpenWith />} onClick={handleFilePreview}>
+    <MenuItem icon={<MdOpenWith />} onClick={handleFileView}>
       Open
     </MenuItem>
     <MenuItem icon={<BiCloudDownload />} onClick={handleDownload}>

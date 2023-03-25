@@ -11,7 +11,7 @@ import Course from './pages/Course';
 import FeedbackPage from './pages/FeedbackPage';
 import Navbar from './components/Navbar';
 import About from './pages/About';
-import FilePreview from './pages/FilePreview';
+import FileView from './pages/FileView';
 
 function App() {
 
@@ -25,7 +25,7 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="feedback" element={<FeedbackPage />} />
           <Route path="about" element={<About />} />
-          <Route path="courses/:courseName/:fileName" element={<FilePreview />} />
+          <Route path="courses/:courseName/:fileName" element={<FileView />} />
           <Route path="courses/:courseName" element={<Course />} />
         </Routes>
     </ChakraProvider>

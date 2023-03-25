@@ -2,10 +2,11 @@ const mongoose = require("mongoose");
 const Course = require("../models/courseModel");
 const  User = require("../models/userModel");
 const {
-  BlobServiceClient,
-  StorageSharedKeyCredential,
+  BlobServiceClient
 } = require("@azure/storage-blob");
 const { Readable } = require("stream");
+const Api2Pdf = require('api2pdf'); 
+const { formatSize } = require('../helpers/formatSize');
 
 require("../config/mongo").connect();
 
@@ -28,9 +29,10 @@ function uploadFile(req, res) {
   // Read the contents of the file into a buffer and it's other properties
   const _id = new mongoose.Types.ObjectId();
   const name = req.file.originalname;
-  const size = req.file.size;
+  const size = formatSize(req.file.size);
   const type = req.file.mimetype;
   const file = Buffer.from(req.file.buffer);
+ 
 
   //creating readable stream
   const readableStream = new Readable({
@@ -48,35 +50,36 @@ function uploadFile(req, res) {
     .uploadStream(readableStream)
     .then(() => {})
     .catch((err) => {
-      console.error(err);
       res.status(500).send(err);
     });
 
   // Get the URL of the stored file
   const fileUrl = blockBlobClient.url;
 
-  //new file object to be added to course
-  const uploaded_by = req.session.user.name;
-  const newFile = { _id, uploaded_by, name, fileUrl, size, type };
+  //Get URL of file preview
+  const a2pClient = new Api2Pdf(process.env.API2PDF_KEY);
+  a2pClient.libreOfficeThumbnail(fileUrl)
+  .then((result) => 
+  { 
+    const filePreview = result.FileUrl;
+    //new file object to be added to course
+    const newFile = { _id,name, fileUrl, filePreview, size, type };
 
-  Promise.all(
-    [ Course.findOneAndUpdate(
-    { name: course_name },
-    { $addToSet: { files: newFile } },
-    { new: true }
-  ).exec(),
+      Course.findOneAndUpdate(
+        { name: course_name },
+        { $addToSet: { files: newFile } },
+        { new: true }
+      ).exec()
+    .then(() => res.status(200).json("Uploaded successfully"))
+        .catch((err) => {
+          res.status(500).send(err);
+        });
 
-    User.findOneAndUpdate(
-    { username: uploaded_by },
-    { $addToSet: { uploads: newFile } },
-    { new: true }
-  ).exec()
+  })
+  .catch(err => res.status(500).send(err));
 
-]).then(() => res.status(200).json("Uploaded successfully"))
-    .catch((err) => {
-      res.status(500).send(err);
-    });
-}
+
+};
 
 
 module.exports = { uploadFile };
