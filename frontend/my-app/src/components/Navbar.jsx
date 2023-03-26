@@ -25,8 +25,10 @@ function Navbar(){
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [formData,setFormData] = useState({});
+  
+  const [course_name,setCourseName] = useState('');
   const [courses,setCourses] = useState([]);
+  const [file, setFile] = useState(null);
   
   // Retrieve the JSON string from local storage
   const userJSON = localStorage.getItem("user");
@@ -34,14 +36,22 @@ function Navbar(){
   // Convert the JSON string to an object
   const user = JSON.parse(userJSON);
 
+
   function getCourses(){
-    axios.get(`http://localhost:9000/admin`,formData)
+    axios.get(`http://localhost:9000/admin`)
     .then((response)=>{
       setCourses(response.data)})
     .catch((err) => console.log(err))
   };
 
-  function handleUpload(){
+  function handleUpload(event){
+    event.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append('file', file);
+    formData.append('course_name',course_name);
+    
     axios.post(`http://localhost:9000/upload`, formData, {
       headers: {
         'x-access-token': user.token,
@@ -51,7 +61,12 @@ function Navbar(){
       .catch((err) => console.log(err))
     };
 
+    function handleFileChange(event) {
+      setFile(event.target.files[0]);
+    }
+
   getCourses();
+
 
   return (
             <Flex flex="1" boxShadow ='md' h='20' zIndex={'100'} position='fixed' w='100%' bg='white'>
@@ -81,7 +96,7 @@ function Navbar(){
                     placeholder='Select course' 
                     name='course_name' 
                     onChange={(event) =>
-                    setFormData({ ...formData, [event.target.name]: event.target.value })}>
+                    setCourseName(event.target.value)}>
                     {courses.map((course) => (<option value={course.name}>{course.name}</option>))}
                     </Select>
                     <FormLabel>File</FormLabel>
@@ -90,6 +105,7 @@ function Navbar(){
                     name="file"
                     type="file"
                     p='4px'
+                    onChange = {handleFileChange}
                     />
                 </form> 
           </ModalBody>
@@ -126,4 +142,3 @@ function Navbar(){
 };
 
 export default Navbar;
-
