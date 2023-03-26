@@ -1,16 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Spacer,
   Button,
   ButtonGroup,
-  Flex
+  Flex,
+  Select,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  FormLabel,
+  Input
 } from '@chakra-ui/react';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 function Navbar(){
   const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [formData,setFormData] = useState({});
+  const [courses,setCourses] = useState([]);
+  
+  // Retrieve the JSON string from local storage
+  const userJSON = localStorage.getItem("user");
+
+  // Convert the JSON string to an object
+  const user = JSON.parse(userJSON);
+
+  function getCourses(){
+    axios.get(`http://localhost:9000/admin`,formData)
+    .then((response)=>{
+      setCourses(response.data)})
+    .catch((err) => console.log(err))
+  };
+
+  function handleUpload(){
+    axios.post(`http://localhost:9000/upload`, formData, {
+      headers: {
+        'x-access-token': user.token,
+        'Content-Type': 'multipart/form-data'
+      }})
+      .then((response)=> console.log(response))
+      .catch((err) => console.log(err))
+    };
+
+  getCourses();
 
   return (
             <Flex flex="1" boxShadow ='md' h='20' zIndex={'100'} position='fixed' w='100%' bg='white'>
@@ -20,10 +61,57 @@ function Navbar(){
                   <Link key="feedback" to="/feedback">Feedback</Link>
                 </ButtonGroup>
                 <Spacer />
+                { user ? <ButtonGroup spacing="3" m='40px' mt='20px'>
+        <Button
+          colorScheme='red'
+          onClick={onOpen}>
+          Upload
+        </Button>
+            
+        <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader textAlign='center'>This means so much to us!</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+          <form>
+                    <FormLabel>Course</FormLabel>
+                    <Select 
+                    type = "text" 
+                    placeholder='Select course' 
+                    name='course_name' 
+                    onChange={(event) =>
+                    setFormData({ ...formData, [event.target.name]: event.target.value })}>
+                    {courses.map((course) => (<option value={course.name}>{course.name}</option>))}
+                    </Select>
+                    <FormLabel>File</FormLabel>
+                    <Input 
+                    id="file"
+                    name="file"
+                    type="file"
+                    p='4px'
+                    />
+                </form> 
+          </ModalBody>
+
+          <ModalFooter>
+            <Button m='auto' colorScheme='red' onClick={handleUpload}>
+              Submit
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+            <Button
+              colorScheme='red' >
+              Logout
+            </Button>
+                </ButtonGroup> :
                 <ButtonGroup spacing="3" m='40px' mt='20px'>
-                              <Button
+              <Button
               colorScheme='red'
-              onClick={() => navigate('/login')}>
+              onClick={() => navigate('/login')}
+              >
               Login
             </Button>
             <Button
@@ -32,7 +120,7 @@ function Navbar(){
             >
               Sign up
             </Button>
-                </ButtonGroup>
+                </ButtonGroup>}
               </Flex>
   )
 };

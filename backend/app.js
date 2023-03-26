@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+
 require("dotenv").config();
 
 require("./config/mongo").connect();
@@ -21,6 +22,8 @@ app.get('/', (req, res) => {
   res.send('Backend is working!');
 });
 
+
+
 //middleware
 const corsOptions = {
   origin: "http://localhost:3000",
@@ -40,8 +43,6 @@ app.use("/courses", courseRouter);
 app.use("/signup",signupRouter);
 app.use("/",loginRouter);
 app.use("/feedback", feedbackRouter);
-
-
 
 // Start the server
 const port = process.env.PORT;

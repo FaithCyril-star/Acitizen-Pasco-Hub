@@ -31,7 +31,16 @@ function Login(props){
             axios.post(`http://localhost:9000/login`, formData,{
       withCredentials: true})
             .then((response) => { 
-                navigate('/');})
+                // When the user logs in successfully, save the token to local storage
+                const user = {
+                    token: response.data.token,
+                    username:response.data.username
+                }
+                
+                const userJSON = JSON.stringify(user);
+                localStorage.setItem("user", userJSON);
+                navigate('/');
+            })
             .catch((error) => {
                 toast({
                         title: 'Login failed',
@@ -43,7 +52,6 @@ function Login(props){
             })
             
     }
-
 
         return (
             <div>

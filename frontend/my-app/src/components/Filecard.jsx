@@ -11,7 +11,8 @@ import {Card,
   MenuItem, 
   IconButton,
   Image,
-  Tooltip
+  Tooltip,
+  useToast
 } from '@chakra-ui/react';
 import {GoKebabVertical} from 'react-icons/go';
 import {BiCloudDownload}from 'react-icons/bi';
@@ -30,20 +31,46 @@ function Filecard(props){
 
         const cardMessage = <div>Uploaded by: {uploaded_by}<br/>Size: {size}</div>;
 
+        // Retrieve the JSON string from local storage
+        const userJSON = localStorage.getItem("user");
+
+        // Convert the JSON string to an object
+        const user = JSON.parse(userJSON);
+
         const navigate = useNavigate();
+        const toast = useToast()
 
         const handleFileView = () => {
+              if (user){
               navigate(`${window.location.pathname}/${name}`, { state: { docUrl:url} });
+              }
+              else{
+                toast({
+                title: 'You are not logged in',
+                status: 'error',
+                duration: 1000,
+                isClosable: true,
+                })};
+
         }
 
         const handleDownload = () => {
+          if (user){
           axios
             .get(url, {
               responseType: 'blob',
             })
             .then(res => {
               fileDownload(res.data, name);
-            });
+            });}
+          else{
+            toast({
+            title: 'You are not logged in',
+            status: 'error',
+            duration: 1000,
+            isClosable: true,
+            })};
+          
         };
 
         return (

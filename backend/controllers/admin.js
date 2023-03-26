@@ -5,7 +5,7 @@ require("../config/mongo").connect();
 
 //creating endpoint to get all courses
 function getCourse(req,res){
-  const query = Course.find({});
+  const query = Course.find({},{ name: 1 });
   query
     .exec()
     .then(courses => res.json(courses))
