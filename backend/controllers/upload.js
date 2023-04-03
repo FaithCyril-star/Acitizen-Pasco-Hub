@@ -43,10 +43,10 @@ function uploadFile(req, res) {
   });
 
   // Create a new block blob client for the file
-  const blockBlobClient = containerClient.getBlockBlobClient(name);
+  const BlockBlobClient1 = containerClient.getBlockBlobClient(name);
 
   // Upload the file to Azure Blob Storage
-  blockBlobClient
+  BlockBlobClient1
     .uploadStream(readableStream)
     .then(() => {})
     .catch((err) => {
@@ -54,14 +54,31 @@ function uploadFile(req, res) {
     });
 
   // Get the URL of the stored file
-  const fileUrl = blockBlobClient.url;
+  const fileUrl = BlockBlobClient1.url;
 
   //Get URL of file preview
   const a2pClient = new Api2Pdf(process.env.API2PDF_KEY);
   a2pClient.libreOfficeThumbnail(fileUrl)
   .then((result) => 
-  { 
-    const filePreview = result.FileUrl;
+  {  
+   
+    const BlobClient2 = containerClient.getBlobClient(`${name}_preview`);
+
+   
+    // Upload the file to Azure Blob Storage from the URL
+    BlobClient2
+      .beginCopyFromURL(result.FileUrl)
+      .then((copyPoller) => {
+        // Poll the copy operation status until it's complete
+        return copyPoller.pollUntilDone();
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
+
+    // Get the URL of the stored file
+    const filePreview = BlobClient2.url;
+
     //new file object to be added to course
     const newFile = { _id,name, fileUrl, filePreview, size, type };
 
@@ -70,13 +87,15 @@ function uploadFile(req, res) {
         { $addToSet: { files: newFile } },
         { new: true }
       ).exec()
-    .then(() => res.status(200).json("Uploaded successfully"))
+    .then(() => res.status(200).send("Uploaded successfully"))
         .catch((err) => {
           res.status(500).send(err);
         });
 
   })
-  .catch(err => res.status(500).send(err));
+  .catch(err => {
+    res.status(500).send(err.message);
+  });
 
 
 };
