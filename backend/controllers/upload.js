@@ -62,7 +62,7 @@ function uploadFile(req, res) {
   .then((result) => 
   {  
    
-    const BlobClient2 = containerClient.getBlobClient(`${name}_preview`);
+    const BlobClient2 = containerClient.getBlobClient(`${name}_thumbnail`);
 
    
     // Upload the file to Azure Blob Storage from the URL
