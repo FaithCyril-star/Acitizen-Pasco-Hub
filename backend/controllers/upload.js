@@ -50,7 +50,7 @@ function uploadFile(req, res) {
     .uploadStream(readableStream)
     .then(() => {})
     .catch((err) => {
-      res.status(500).send(err);
+      res.status(500).json(err.message);
     });
 
   // Get the URL of the stored file
@@ -61,7 +61,7 @@ function uploadFile(req, res) {
   a2pClient.libreOfficeThumbnail(fileUrl)
   .then((result) => 
   {  
-   
+    
     const BlobClient2 = containerClient.getBlobClient(`${name}_thumbnail`);
 
    
@@ -73,7 +73,7 @@ function uploadFile(req, res) {
         return copyPoller.pollUntilDone();
       })
       .catch((err) => {
-        res.status(500).send(err);
+        res.status(500).json(err);
       });
 
     // Get the URL of the stored file
@@ -89,12 +89,12 @@ function uploadFile(req, res) {
       ).exec()
     .then(() => res.status(200).send("Uploaded successfully"))
         .catch((err) => {
-          res.status(500).send(err);
+          res.status(500).json(err);
         });
 
   })
   .catch(err => {
-    res.status(500).send(err.message);
+    res.status(500).json(err);
   });
 
 

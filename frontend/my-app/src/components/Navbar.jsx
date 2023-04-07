@@ -76,7 +76,7 @@ function Navbar(){
         .catch((error) => {
             toast({
                 title: 'Upload unsuccessful',
-                description: `${error.response.data}`,
+                description: `There was a problem uploading your document`,
                 status: 'error',
                 duration: 9000,
                 isClosable: true,
