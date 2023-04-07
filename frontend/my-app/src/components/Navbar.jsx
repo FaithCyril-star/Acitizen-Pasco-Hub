@@ -88,6 +88,10 @@ function Navbar(){
       setFile(event.target.files[0]);
     }
 
+    function handleLogout(){
+      localStorage.removeItem('user');
+    }
+
   getCourses();
   
   const { promiseInProgress } = usePromiseTracker();
@@ -145,7 +149,8 @@ function Navbar(){
       </Modal>
 
             <Button
-              colorScheme='red' >
+              colorScheme='red'
+              onClick={handleLogout} >
               Logout
             </Button>
                 </ButtonGroup> :
