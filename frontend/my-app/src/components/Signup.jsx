@@ -19,7 +19,9 @@ import {
     useToast
   } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import { usePromiseTracker,trackPromise } from "react-promise-tracker";
 import axios from 'axios';
+import ClipLoader from 'react-spinners/ClipLoader';
 
  
 function Signup(props) { 
@@ -38,6 +40,7 @@ function Signup(props) {
 
                 delete userObject.password1;
 
+        trackPromise(
                 axios.post("http://localhost:9000/signup", formData)
                 .then(() => {
                         toast({
@@ -56,7 +59,8 @@ function Signup(props) {
                         duration: 9000,
                         isClosable: true,
                         })
-                });
+                })
+                );
     }
         }
 
@@ -71,9 +75,13 @@ function Signup(props) {
                     </Alert>)}
         }
 
+        const { promiseInProgress } = usePromiseTracker();
+
         return (
             <div>
-                <Heading textAlign='center' mt='-10'>Sign up</Heading>
+                <Heading textAlign='center' mt='-10' mb='10'>Sign up</Heading>
+                { promiseInProgress ? <ClipLoader color='#ed3737' size={100}/> 
+                :
                 <form onSubmit={handleSubmit}>
                 <FormControl w={400} margin='auto' mt={marginTop} isRequired >
                     <FormLabel >Username</FormLabel>
@@ -143,7 +151,7 @@ function Signup(props) {
                     colorScheme='red' mt="8" type="submit">Submit</Button>
                     </Center>
                 </FormControl>
-                </form>
+                </form>}
             </div>
         );
 }

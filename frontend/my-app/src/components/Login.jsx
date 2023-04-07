@@ -16,6 +16,9 @@ import {
   } from '@chakra-ui/react';
   import { useNavigate } from 'react-router-dom';
   import axios from 'axios';
+  import { usePromiseTracker,trackPromise } from "react-promise-tracker";
+  import ClipLoader from 'react-spinners/ClipLoader';
+
 
 function Login(props){
         const marginTop = props.mt 
@@ -28,6 +31,8 @@ function Login(props){
         
         function handleSubmit(event){
             event.preventDefault()
+
+    trackPromise(
             axios.post(`http://localhost:9000/login`, formData,{
       withCredentials: true})
             .then((response) => { 
@@ -49,13 +54,17 @@ function Login(props){
                         duration: 9000,
                         isClosable: true,
                         })
-            })
+            }));
             
-    }
+    };
+
+        const { promiseInProgress } = usePromiseTracker();
 
         return (
             <div>
-            <Heading textAlign='center' mt='-10'>Login</Heading>
+            <Heading textAlign='center' mt='-10' mb='10'>Login</Heading>
+            { promiseInProgress ? <ClipLoader color='#ed3737' size={100}/> 
+            :
             <form onSubmit={handleSubmit}>
               <FormControl w={400} margin='auto' mt={marginTop} isRequired>
                     <FormLabel >Username</FormLabel>
@@ -92,8 +101,8 @@ function Login(props){
                     mt="8" type="submit" 
                     >Submit</Button>
                     </Center>
-                </FormControl>  
-                </form>
+                </FormControl> 
+                </form>}
             </div>
         );
     }

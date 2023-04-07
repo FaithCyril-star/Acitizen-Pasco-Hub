@@ -24,7 +24,7 @@ const containerClient = blobServiceClient.getContainerClient(
 
 //creating endpoint to add a file to a course
 function uploadFile(req, res) {
-  const { course_name } = req.body;
+  const { course_name,uploaded_by } = req.body;
 
   // Read the contents of the file into a buffer and it's other properties
   const _id = new mongoose.Types.ObjectId();
@@ -80,7 +80,7 @@ function uploadFile(req, res) {
     const filePreview = BlobClient2.url;
 
     //new file object to be added to course
-    const newFile = { _id,name, fileUrl, filePreview, size, type };
+    const newFile = { _id,name, fileUrl, uploaded_by, filePreview, size, type };
 
       Course.findOneAndUpdate(
         { name: course_name },
