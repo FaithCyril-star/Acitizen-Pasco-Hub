@@ -52,6 +52,7 @@ function Navbar(){
 
     formData.append('file', file);
     formData.append('course_name',course_name);
+    formData.append('uploaded_by',user.username);
     
     axios.post(`http://localhost:9000/upload`, formData, {
       headers: {

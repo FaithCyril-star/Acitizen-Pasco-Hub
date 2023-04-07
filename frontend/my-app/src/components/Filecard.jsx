@@ -88,9 +88,9 @@ function Filecard(props){
   </Tooltip>
   <Divider />
   <CardFooter as='flex' h='25%' bg='gray.100'>
-      <Text fontSize='xs'>{name}</Text>
+      <Text maxWidth='180px' fontSize='xs' noOfLines={[1,2]} >{name}</Text>
       <Spacer />
-    <Menu isLazy>
+    <Menu isLazy={true}>
   <MenuButton
     as={IconButton}
     aria-label='Options'
