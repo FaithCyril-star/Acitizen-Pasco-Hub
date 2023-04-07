@@ -5,6 +5,7 @@ import {Box} from '@chakra-ui/react';
 import Footer from '../components/Footer';
 
 function Home() {
+
     return (
       <Box>
         <Header pt="40" />

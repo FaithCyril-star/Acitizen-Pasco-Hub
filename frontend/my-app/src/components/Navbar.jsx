@@ -21,6 +21,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 
+
 function Navbar(){
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -66,7 +67,6 @@ function Navbar(){
     }
 
   getCourses();
-
 
   return (
             <Flex flex="1" boxShadow ='md' h='20' zIndex={'100'} position='fixed' w='100%' bg='white'>

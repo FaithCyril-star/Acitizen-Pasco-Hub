@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {
   ChakraProvider,
   theme,
@@ -12,9 +12,28 @@ import FeedbackPage from './pages/FeedbackPage';
 import Navbar from './components/Navbar';
 import About from './pages/About';
 import FileView from './pages/FileView';
+import jwt_decode from "jwt-decode";
 
 function App() {
+  useEffect(() => {
 
+    const intervalId = setInterval(() => {
+      const user = JSON.parse(localStorage.getItem('user'));
+
+      if (user) {
+        const decodedToken = jwt_decode(user.token);
+        const currentTime = Math.floor(Date.now()/1000);
+        
+        if (decodedToken.exp < currentTime) {
+          // Token has expired, remove it from local storage
+          localStorage.removeItem('user');
+          console.log('removed!');
+        }
+      }
+
+      return () => clearInterval(intervalId);
+    }, 120000);
+    }, []);
 
   return (
     <ChakraProvider theme={theme}>
