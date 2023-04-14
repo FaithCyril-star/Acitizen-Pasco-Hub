@@ -13,6 +13,8 @@ import Navbar from './components/Navbar';
 import About from './pages/About';
 import FileView from './pages/FileView';
 import jwt_decode from "jwt-decode";
+import { CoursesProvider } from './context';
+
 
 function App() {
   useEffect(() => {
@@ -37,6 +39,7 @@ function App() {
 
   return (
     <ChakraProvider theme={theme}>
+    <CoursesProvider>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -47,6 +50,7 @@ function App() {
           <Route path="courses/:courseName/:fileName" element={<FileView />} />
           <Route path="courses/:courseName" element={<Course />} />
         </Routes>
+        </CoursesProvider>
     </ChakraProvider>
   );
 }

@@ -50,6 +50,7 @@ function Signup(props) {
                         duration: 9000,
                         isClosable: true,
                         })
+                        navigate('/');
                 })
                 .catch((error) => {
                     toast({

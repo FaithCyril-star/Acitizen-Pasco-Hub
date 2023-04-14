@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Spacer,
   Button,
@@ -23,17 +23,18 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { usePromiseTracker,trackPromise } from "react-promise-tracker";
 import BarLoader from 'react-spinners/BarLoader';
+import CoursesContext from '../context';
+
 
 
 function Navbar(){
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast()
-  
   const [course_name,setCourseName] = useState('');
-  const [courses,setCourses] = useState([]);
   const [file, setFile] = useState(null);
-
+  const { courses } = useContext(CoursesContext)
+  
   
   // Retrieve the JSON string from local storage
   const userJSON = localStorage.getItem("user");
@@ -41,13 +42,6 @@ function Navbar(){
   // Convert the JSON string to an object
   const user = JSON.parse(userJSON);
 
-
-  function getCourses(){
-    axios.get(`http://localhost:9000/admin`)
-    .then((response)=>{
-      setCourses(response.data)})
-    .catch((err) => console.log(err))
-  };
 
   function handleUpload(event){
     event.preventDefault();
@@ -92,11 +86,10 @@ function Navbar(){
       localStorage.removeItem('user');
     }
 
-  getCourses();
   
   const { promiseInProgress } = usePromiseTracker();
 
-  return (
+  return (  
             <Flex flex="1" boxShadow ='md' h='20' zIndex={'100'} position='fixed' w='100%' bg='white'>
                 <ButtonGroup variant="link" spacing="8" m='40px' mt='20px'>
                   <Link key="home" to="/">Home</Link>
@@ -172,4 +165,7 @@ function Navbar(){
   )
 };
 
+
 export default Navbar;
+
+
