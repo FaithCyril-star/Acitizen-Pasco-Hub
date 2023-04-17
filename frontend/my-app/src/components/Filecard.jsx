@@ -62,7 +62,10 @@ function Filecard(props){
             })
             .then(res => {
               fileDownload(res.data, name);
-            });}
+            })
+            .catch(err => {
+              console.log(err)}
+              )}
           else{
             toast({
             title: 'You are not logged in',
@@ -77,7 +80,9 @@ function Filecard(props){
           
             <Card w='250px' h='300px' m='25px' boxShadow='xl'>
   <Tooltip label={cardMessage} shouldWrapChildren={true} placement='auto-start'>
-  <CardBody p='5' >
+  <CardBody p='5' 
+  onDoubleClick={handleFileView}
+  >
   <Image
       src={thumbnailImage}
       alt='file preview'
