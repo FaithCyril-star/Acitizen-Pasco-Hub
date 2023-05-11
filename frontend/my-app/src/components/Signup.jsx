@@ -45,7 +45,7 @@ function Signup(props) {
                 .then(() => {
                         toast({
                         title: 'Account created.',
-                        description: `We have created your account`,
+                        description: `We have created your account. Please check your inbox to verify`,
                         status: 'success',
                         duration: 9000,
                         isClosable: true,
@@ -81,7 +81,7 @@ function Signup(props) {
         return (
             <div>
                 <Heading textAlign='center' mt='-10' mb='10'>Sign up</Heading>
-                { promiseInProgress ? <ClipLoader color='#ed3737' size={100}/> 
+                { promiseInProgress ? <ClipLoader color='#ed3737' size={100} speedMultiplier={0.5}/> 
                 :
                 <form onSubmit={handleSubmit}>
                 <FormControl w={400} margin='auto' mt={marginTop} isRequired >

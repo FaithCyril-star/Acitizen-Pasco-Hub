@@ -15,7 +15,9 @@ function SearchOption(props) {
             textAlign='left' 
             pl='15px' 
             my='2'
-            onClick={handleClickOption}>{course}</Box>
+            onClick={handleClickOption}
+            _hover={{
+              background: "#F1F6F9"}}>{course}</Box>
     );
 }
 
