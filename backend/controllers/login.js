@@ -22,6 +22,9 @@ User.findOne({ username: username }, (err, user) => {
     if (!user) {
     return res.status(400).send('Invalid username or password');
 };
+  if (!user.verified){
+    return res.status(400).send('You have not verified your email, please check your inbox.');
+  }
 
     // Compare the plaintext password with the hashed password stored in the database
     bcrypt.compare(password, user.password, (err, result) => {

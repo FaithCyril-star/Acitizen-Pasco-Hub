@@ -9,4 +9,8 @@ router.post("/", function (req, res, next) {
   signup.addUser(req, res);
 });
 
+router.get("/verify/:id/:token", function (req, res, next) {
+  signup.verifyUser(req, res);
+});
+
 module.exports = router;

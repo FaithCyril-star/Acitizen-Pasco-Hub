@@ -8,7 +8,8 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   is_admin:{type: Boolean, default:false},
-  token: { type: String }
+  token: { type: String },
+  verified:{type: Boolean, default:false}
   // array of references to files associated with the course
 });
 

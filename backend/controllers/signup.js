@@ -3,6 +3,9 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt'); 
 const validator = require('validator');
 const saltRounds = 10;
+const Token = require("../models/tokenModel");
+const sendEmail = require("../utils/sendEmail");
+require('dotenv').config()
 
 require("../config/mongo").connect();
 
@@ -30,12 +33,16 @@ if (!validator.matches(email,emailRegex)) {
 }
 
 
-User.findOne({ email: email }, function (err, docs) {
+User.findOne({ email: email }, function (err, user) {
   if (err) {
     return res.status(400).send(err.message);
   } 
-  else if (docs)  {
-    return res.status(400).send("Account already exisits!");
+  else if (user)  {
+    if (user.verified){
+    return res.status(400).send("Account already exisits!");}
+    else{
+      return res.status(400).send("You have signed up already. Please check your inbox to verify your email");
+    }
   }
 
 // Hash the user's password
@@ -56,12 +63,42 @@ bcrypt.hash(password, saltRounds, function (err, hash){
     email: email,
     password: hashedPassword
   });
+
+  const token = new Token({
+    userId: newUser._id,
+    token: require('crypto').randomBytes(32).toString("hex"),
+  });
     
     newUser.save()
-    .then(() => res.status(201).json(newUser))
+    .then(() => {return token.save()})
+    .then(() => {
+      const message = `${process.env.BASE_URL}/signup/verify/${newUser._id}/${token.token}`;
+      sendEmail(newUser.email, "Verify Email", message)
+      .then(()=>{res.status(200).send("An Email is sent to your account please verify")})
+      .catch((err) => {res.status(500).send(err)});})
     .catch((err) => {
-      res.status(500).send(err.message);
+      res.send(err);
     });
+
 })})};
 
-module.exports = { addUser };
+const verifyUser = async(req,res) => {
+  try {
+    const user = await User.findOne({ _id: req.params.id });
+    if (!user) return res.status(400).send("Invalid link");
+
+    const token = await Token.findOne({
+      userId: user._id,
+      token: req.params.token,
+    });
+    if (!token) return res.status(400).send("Invalid link");
+
+    await User.updateOne({ _id: user._id, verified: true });
+    await Token.findByIdAndRemove(token._id);
+
+    res.send("email verified sucessfully");
+  } catch (error) {
+    res.status(400).send("An error occured");
+  }
+}
+module.exports = { addUser, verifyUser };
