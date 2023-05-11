@@ -72,8 +72,8 @@ bcrypt.hash(password, saltRounds, function (err, hash){
     newUser.save()
     .then(() => {return token.save()})
     .then(() => {
-      const message = `${process.env.BASE_URL}/signup/verify/${newUser._id}/${token.token}`;
-      sendEmail(newUser.email, "Verify Email", message)
+      const url = `${process.env.BASE_URL}/signup/verify/${newUser._id}/${token.token}`;
+      sendEmail(newUser.email, "Verify Email", url)
       .then(()=>{res.status(200).send("An Email is sent to your account please verify")})
       .catch((err) => {res.status(500).send(err)});})
     .catch((err) => {
