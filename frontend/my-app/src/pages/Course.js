@@ -34,8 +34,13 @@ function Course() {
 
         if (loading) {
           return (
-            <div>
-              <Flex pt="40" align="center" justify="center">
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '100vh',
+            }}>
+              <Flex >
                 <BeatLoader
                   color="#ed3737"
                   size={50}

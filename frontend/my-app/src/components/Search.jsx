@@ -11,7 +11,7 @@ import { Input,
  import { useNavigate } from 'react-router-dom';
  import SearchOption from './SearchOption';
  import CoursesContext from '../context';
- import { getMatchingStrings } from '../helpers/Filter';
+ import { getMatchingStrings } from '../utils/Filter';
 
 
 
@@ -77,7 +77,7 @@ function Search(props){
                 type="submit"/>
                 </InputRightElement>   
             </InputGroup>
-            <Flex bg='white' flexDirection='column' 
+            <Flex bg='#FDF4F5' flexDirection='column' 
             boxShadow={boxshadow} pt='40px' borderRadius='md' w='100%'  color='black'>
             {filteredCourses.map(course => (
                 <SearchOption course={course.name} />

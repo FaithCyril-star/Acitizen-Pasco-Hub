@@ -16,7 +16,8 @@ import {
   FormLabel,
   Input,
   Center,
-  useToast
+  useToast,
+  Text
 } from '@chakra-ui/react';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
@@ -84,17 +85,19 @@ function Navbar(){
 
     function handleLogout(){
       localStorage.removeItem('user');
+      navigate('/login')
+
     }
 
   
   const { promiseInProgress } = usePromiseTracker();
 
   return (  
-            <Flex flex="1" boxShadow ='md' h='20' zIndex={'100'} position='fixed' w='100%' bg='white'>
+            <Flex flex="1" boxShadow ='md' h='20' zIndex={'100'} position='fixed' w='100%' bg='#FDF4F5'>
                 <ButtonGroup variant="link" spacing="8" m='40px' mt='20px'>
-                  <Link key="home" to="/">Home</Link>
-                  <Link key="about" to="/about">About</Link>
-                  <Link key="feedback" to="/feedback">Feedback</Link>
+                  <Link key="home" to="/"><Text fontSize={'xl'}>Home</Text></Link>
+                  <Link key="about" to="/about"><Text fontSize={'xl'}>About</Text></Link>
+                  <Link key="feedback" to="/feedback"><Text fontSize={'xl'}>Feedback</Text></Link>
                 </ButtonGroup>
                 <Spacer />
                 { user ? <ButtonGroup spacing="3" m='40px' mt='20px'>

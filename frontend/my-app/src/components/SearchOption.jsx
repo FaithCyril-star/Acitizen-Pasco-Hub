@@ -16,8 +16,7 @@ function SearchOption(props) {
             pl='15px' 
             my='2'
             onClick={handleClickOption}
-            _hover={{
-              background: "#F1F6F9"}}>{course}</Box>
+            >{course}</Box>
     );
 }
 

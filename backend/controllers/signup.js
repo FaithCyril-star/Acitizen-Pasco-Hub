@@ -10,7 +10,7 @@ require('dotenv').config()
 require("../config/mongo").connect();
 
 // Define a regex for acity email
-const emailRegex = /^([A-Za-z]+(\.[A-Za-z]+)+)@acity\.edu\.gh$/;
+const emailRegex = /^([A-Za-z]+(\.[A-Za-z]+)*(-[A-Za-z]+(\.[A-Za-z]+)*)?)@acity\.edu\.gh$/;
 
 // Define the "users" collection
 const User = require('../models/userModel');

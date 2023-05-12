@@ -9,8 +9,14 @@ class Footer extends React.Component{
   <Container
     as="footer"
     role="contentinfo"
+    style={{position: 'fixed',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            padding: '8px',
+            marginLeft:0,}}
   >
-    <Stack>
+    <Stack alignSelf='end'>
       <Stack justify="space-between" direction="row" align="center">
         <ButtonGroup variant="ghost">
           <IconButton

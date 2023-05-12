@@ -78,7 +78,7 @@ function Filecard(props){
 
         return (
           
-            <Card w='250px' h='300px' m='25px' boxShadow='xl'>
+            <Card w='250px' h='300px' m='25px' boxShadow='xl' bg='white'>
   <Tooltip label={cardMessage} shouldWrapChildren={true} placement='auto-start'>
   <CardBody p='5' 
   onDoubleClick={handleFileView}

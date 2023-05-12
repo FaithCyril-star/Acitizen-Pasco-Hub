@@ -14,6 +14,7 @@ import About from './pages/About';
 import FileView from './pages/FileView';
 import jwt_decode from "jwt-decode";
 import { CoursesProvider } from './context';
+import ProtectedRoute from './utils/protectedRoute';
 
 
 function App() {
@@ -47,7 +48,7 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="feedback" element={<FeedbackPage />} />
           <Route path="about" element={<About />} />
-          <Route path="courses/:courseName/:fileName" element={<FileView />} />
+          <Route path="courses/:courseName/:fileName" element={<ProtectedRoute><FileView /></ProtectedRoute>} />
           <Route path="courses/:courseName" element={<Course />} />
         </Routes>
         </CoursesProvider>
