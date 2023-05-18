@@ -20,7 +20,7 @@ function Course() {
             setLoading(true);
             try {
               const response = await axios.get(
-                `http://localhost:9000/courses/${courseName}`
+                `${process.env.REACT_APP_BACKEND_BASE_URL}/courses/${courseName}`
               );
               setCourseContent(response.data[0]);
             } catch (error) {

@@ -72,7 +72,8 @@ bcrypt.hash(password, saltRounds, function (err, hash){
     newUser.save()
     .then(() => {return token.save()})
     .then(() => {
-      const url = `${process.env.BASE_URL}/signup/verify/${newUser._id}/${token.token}`;
+      console.log(process.env.BACKEND_BASE_URL)
+      const url = `${process.env.BACKEND_BASE_URL}/signup/verify/${newUser._id}/${token.token}`;
       sendEmail(newUser.email, "Verify Email", url)
       .then(()=>{res.status(200).send("An Email is sent to your account please verify")})
       .catch((err) => {res.status(500).send(err)});})
@@ -96,7 +97,7 @@ const verifyUser = async(req,res) => {
     await User.updateOne({ _id: user._id, verified: true });
     await Token.findByIdAndRemove(token._id);
 
-    res.send("email verified sucessfully");
+    res.redirect(`${process.env.FRONTEND_BASE_URL}signup/verification`);
   } catch (error) {
     res.status(400).send("An error occured");
   }

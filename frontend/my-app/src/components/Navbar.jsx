@@ -54,7 +54,7 @@ function Navbar(){
     formData.append('uploaded_by',user.username);
     
     trackPromise(
-    axios.post(`http://localhost:9000/upload`, formData, {
+    axios.post(`${process.env.REACT_APP_BACKEND_BASE_URL}/upload`, formData, {
       headers: {
         'x-access-token': user.token,
         'Content-Type': 'multipart/form-data'
