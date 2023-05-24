@@ -67,7 +67,7 @@ function Login(props){
             { promiseInProgress ? <ClipLoader color='#ed3737' size={100}/> 
             :
             <form onSubmit={handleSubmit}>
-              <FormControl w={400} margin='auto' mt={marginTop} isRequired>
+              <FormControl width={['100%','100%','100%','100%',400]} margin='auto' mt={marginTop} isRequired>
                     <FormLabel >Username</FormLabel>
                     <Input 
                     id="username"

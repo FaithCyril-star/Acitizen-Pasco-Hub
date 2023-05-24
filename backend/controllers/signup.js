@@ -97,9 +97,9 @@ const verifyUser = async(req,res) => {
     await User.updateOne({ _id: user._id, verified: true });
     await Token.findByIdAndRemove(token._id);
 
-    res.redirect(`${process.env.FRONTEND_BASE_URL}signup/verification`);
+    res.redirect(`${process.env.FRONTEND_BASE_URL}/signup/verification`);
   } catch (error) {
-    res.status(400).send("An error occured");
+    res.status(400).send(error.message);
   }
 }
 module.exports = { addUser, verifyUser };

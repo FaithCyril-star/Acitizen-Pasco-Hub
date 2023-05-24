@@ -17,7 +17,13 @@ import {
   Input,
   Center,
   useToast,
-  Text
+  Text,
+  useMediaQuery,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  IconButton
 } from '@chakra-ui/react';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
@@ -25,7 +31,7 @@ import axios from 'axios';
 import { usePromiseTracker,trackPromise } from "react-promise-tracker";
 import BarLoader from 'react-spinners/BarLoader';
 import CoursesContext from '../context';
-
+import {HamburgerIcon } from '@chakra-ui/icons';
 
 
 function Navbar(){
@@ -35,7 +41,7 @@ function Navbar(){
   const [course_name,setCourseName] = useState('');
   const [file, setFile] = useState(null);
   const { courses } = useContext(CoursesContext)
-  
+  const [isLargerThan640] = useMediaQuery('(min-width: 640px)')
   
   // Retrieve the JSON string from local storage
   const userJSON = localStorage.getItem("user");
@@ -94,6 +100,8 @@ function Navbar(){
 
   return (  
             <Flex flex="1" boxShadow ='md' h='20' zIndex={'100'} position='fixed' w='100%' bg='#FDF4F5'>
+                { isLargerThan640 ?
+                <>
                 <ButtonGroup variant="link" spacing="8" m='40px' mt='20px'>
                   <Link key="home" to="/"><Text fontSize={'xl'}>Home</Text></Link>
                   <Link key="about" to="/about"><Text fontSize={'xl'}>About</Text></Link>
@@ -106,7 +114,7 @@ function Navbar(){
           onClick={onOpen}>
           Upload
         </Button>
-        
+
         <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -163,8 +171,85 @@ function Navbar(){
             >
               Sign up
             </Button>
-                </ButtonGroup>}
-              </Flex>
+                </ButtonGroup>
+              }</>
+              :
+              <Menu>
+              <MenuButton
+                as={IconButton}
+                aria-label='Options'
+                icon={<HamburgerIcon />}
+                variant='outline'
+                m='10px' 
+                mt='20px'
+              />
+              <MenuList>
+                <MenuItem as={Button} onClick={() => navigate('/')}>
+                  Home
+                </MenuItem>
+                <MenuItem as={Button} onClick={() => navigate('/about')}>
+                  About
+                </MenuItem>
+                <MenuItem as={Button} onClick={() => navigate('/feedback')}>
+                  Feedback
+                </MenuItem>
+                { user ? <>
+                <MenuItem as={Button} onClick={onOpen}>
+                  Upload
+                </MenuItem>
+
+        <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader textAlign='center'>This means so much to us!</ModalHeader>
+          <ModalCloseButton />
+          { promiseInProgress ? <Center mt='10' mb='20'><BarLoader color='#ed3737' width={200} height={10}/></Center>
+                :  
+          <><ModalBody>
+          <form>
+                    <FormLabel>Course</FormLabel>
+                    <Select 
+                    type = "text" 
+                    placeholder='Select course' 
+                    name='course_name' 
+                    onChange={(event) =>
+                    setCourseName(event.target.value)}>
+                    {courses.map((course) => (<option value={course.name}>{course.name}</option>))}
+                    </Select>
+                    <FormLabel>File</FormLabel>
+                    <Input 
+                    id="file"
+                    name="file"
+                    type="file"
+                    p='4px'
+                    onChange = {handleFileChange}
+                    />
+                </form> 
+          </ModalBody>
+
+          <ModalFooter>
+            <Button m='auto' colorScheme='red' onClick={handleUpload}>
+              Submit
+            </Button>
+          </ModalFooter></>}
+        </ModalContent>
+      </Modal>
+              <MenuItem as={Button} onClick={handleLogout}>
+                  Logout
+              </MenuItem>
+                </> :
+                <>
+              <MenuItem as={Button} onClick={() => navigate('/login')}>
+                  Login
+                </MenuItem>
+            <MenuItem as={Button} onClick={() => navigate('/signup')}>
+                  Signup
+                </MenuItem>
+                </>
+              }
+              </MenuList>
+            </Menu> }
+              </Flex>               
   )
 };
 
