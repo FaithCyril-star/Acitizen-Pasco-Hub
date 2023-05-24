@@ -16,7 +16,7 @@ class Feedback extends Component {
         return (
             <div>
             <Heading textAlign='center' mt='-10'>Feedback</Heading>
-            <Text fontSize='sm' textAlign='center' mb='5'>Let us what your thoughts or<br/>any requests you may have!</Text>
+            <Text fontSize='sm' textAlign='center' mb='5'>Let us know your thoughts or<br/>any requests you may have!</Text>
             <form action="https://formsubmit.co/6eba76b99c2a7533c21087e46dcc82da" method="POST">
               <FormControl width={['100%','100%','100%','100%',400]} margin='auto' mt={this.props.marginTop} isRequired
                 >
