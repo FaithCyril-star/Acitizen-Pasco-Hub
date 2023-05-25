@@ -8,7 +8,7 @@ function getCourse(req,res){
   const query = Course.find({},{ name: 1 });
   query
     .exec()
-    .then(courses => res.json(courses))
+    .then(courses => res.status(200).json(courses))
     .catch((err) => {
       res.status(500).send(err);
     });
@@ -20,7 +20,7 @@ function createCourse(req,res){
     const _id = new mongoose.Types.ObjectId();
     const course = new Course({_id,name,description,files});
     course.save()
-    .then(() => res.json(course))
+    .then(() => res.status(200).json(course))
     .catch(err => {
         res.status(500).send(err);
     });

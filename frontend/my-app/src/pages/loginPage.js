@@ -12,7 +12,7 @@ class LoginPage extends Component {
               <Box
                 m="5%"
                 p="90px"
-                w="40%"
+                w="40vw"
                 border="5px"
                 borderRadius="10%"
                 borderStyle="solid"

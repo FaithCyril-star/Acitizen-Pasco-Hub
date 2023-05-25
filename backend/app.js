@@ -26,8 +26,7 @@ app.get('/', (req, res) => {
 
 //middleware
 const corsOptions = {
-  origin: "http://localhost:3000",
-  credentials: true,
+  origin: process.env.FRONTEND_BASE_URL
 };
 
 

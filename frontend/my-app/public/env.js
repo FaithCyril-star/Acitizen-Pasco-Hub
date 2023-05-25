@@ -51,12 +51,12 @@ window.env = {
   "npm_lifecycle_script": "react-dotenv && react-scripts start",
   "VSCODE_GIT_IPC_HANDLE": "/var/folders/yr/bbz0sdbs0ynccwy3l96z04zm0000gn/T/vscode-git-03c0987db2.sock",
   "CONDA_DEFAULT_ENV": "base",
-  "npm_config_user_agent": "npm/9.3.1 node/v18.14.0 darwin x64 workspaces/false",
+  "npm_config_user_agent": "npm/9.6.7 node/v18.14.0 darwin x64 workspaces/false",
   "GIT_ASKPASS": "/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh",
   "VSCODE_GIT_ASKPASS_NODE": "/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin)",
   "npm_node_execpath": "/usr/local/bin/node",
   "npm_config_prefix": "/usr/local",
   "COLORTERM": "truecolor",
   "EMAIL_CLIENT": "6eba76b99c2a7533c21087e46dcc82da",
-  "REACT_APP_BACKEND_BASE_URL": "http://localhost:9000"
+  "REACT_APP_BACKEND_BASE_URL": "https://acitizenpascohubserver.azurewebsites.net"
 };

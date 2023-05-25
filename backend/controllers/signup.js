@@ -94,7 +94,7 @@ const verifyUser = async(req,res) => {
     });
     if (!token) return res.status(400).send("Invalid link");
 
-    await User.updateOne({ _id: user._id, verified: true });
+    await User.findByIdAndUpdate(user._id, { verified: true });
     await Token.findByIdAndRemove(token._id);
 
     res.redirect(`${process.env.FRONTEND_BASE_URL}/signup/verification`);

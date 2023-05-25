@@ -7,7 +7,7 @@ export function CoursesProvider({children}){
     const [courses,SetCourses] = useState([]);
 
 
-        axios.get(`http://localhost:9000/admin`)
+        axios.get(`${process.env.REACT_APP_BACKEND_BASE_URL}/admin`)
         .then((response)=>{
             SetCourses(response.data);
         })

@@ -5,7 +5,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    image: myapp-server
+    image: acitizenhub.azurecr.io/myapp-server:v3
     container_name: myapp-node-server
     command: node app.js
     volumes:
@@ -23,7 +23,7 @@ services:
     build:
       context: ./frontend/my-app
       dockerfile: Dockerfile
-    image: myapp-client
+    image: acitizenhub.azurecr.io/myapp-client:v3
     container_name: myapp-react-client
     command: npm start
     volumes:
