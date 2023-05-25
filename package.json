@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "api2pdf": "^2.0.3",
-    "react-thumbnail": "^1.0.0"
-  }
-}

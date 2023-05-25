@@ -37,7 +37,9 @@
     "nodemailer": "^6.9.2",
     "regenerator-runtime": "^0.13.11",
     "sinon": "^15.0.4",
-    "validator": "^13.7.0"
+    "validator": "^13.7.0",
+    "api2pdf": "^2.0.3",
+    "react-thumbnail": "^1.0.0"
   },
   "browserslist": [
     "last 1 Chrome version",
