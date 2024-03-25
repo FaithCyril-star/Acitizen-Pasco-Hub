@@ -5,7 +5,8 @@ const {
   BlobServiceClient
 } = require("@azure/storage-blob");
 const { Readable } = require("stream");
-const Api2Pdf = require('api2pdf'); 
+// const Api2Pdf = require('api2pdf'); 
+const gm = require('gm');
 const { formatSize } = require('../helpers/formatSize');
 
 require("../config/mongo").connect();
@@ -57,47 +58,32 @@ function uploadFile(req, res) {
   const fileUrl = BlockBlobClient1.url;
 
   //Get URL of file preview
-  const a2pClient = new Api2Pdf(process.env.API2PDF_KEY);
-  a2pClient.libreOfficeThumbnail(fileUrl)
-  .then((result) => 
-  {  
-    
-    const BlobClient2 = containerClient.getBlobClient(`${name}_thumbnail`);
+  const thumbnailStream = gm(readableStream, `${name}[0]`).resize('500', '500').enhance().stream('png');
 
-   
-    // Upload the file to Azure Blob Storage from the URL
-    BlobClient2
-      .beginCopyFromURL(result.FileUrl)
-      .then((copyPoller) => {
-        // Poll the copy operation status until it's complete
-        return copyPoller.pollUntilDone();
-      })
-      .catch((err) => {
-        res.status(500).json(err);
-      });
-
-    // Get the URL of the stored file
-    const filePreview = BlobClient2.url;
-
-    //new file object to be added to course
-    const newFile = { _id,name, fileUrl, uploaded_by, filePreview, size, type };
-
-      Course.findOneAndUpdate(
-        { name: course_name },
-        { $addToSet: { files: newFile } },
-        { new: true }
-      ).exec()
-    .then(() => res.status(200).send("Uploaded successfully"))
-        .catch((err) => {
-          res.status(500).json(err);
-        });
-
-  })
-  .catch(err => {
-    res.status(500).json(err);
+  const  BlockBlobClient2 = containerClient.getBlockBlobClient(`${name}_thumbnail`);
+  // Upload the file to Azure Blob Storage
+  BlockBlobClient2
+  .uploadStream(thumbnailStream)
+  .then(() => {})
+  .catch((err) => {
+    res.status(500).json(err.message);
   });
 
+  // Get the URL of the stored file
+  const filePreview = BlockBlobClient2.url;
 
+  //new file object to be added to course
+  const newFile = { _id,name, fileUrl, uploaded_by, filePreview, size, type };
+
+  Course.findOneAndUpdate(
+    { name: course_name },
+    { $addToSet: { files: newFile } },
+    { new: true }
+  ).exec()
+.then(() => res.status(200).send("Uploaded successfully"))
+    .catch((err) => {
+      res.status(500).json(err);
+    });
 };
 
 
